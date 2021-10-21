@@ -27,7 +27,13 @@ $router->get('/home', 'Controller@teste');
 
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-
     //Rota de Registro
     $router->post('/register', 'UsersController@register');
+});
+
+$router->group(['prefix' => 'paciente'], function () use ($router) {
+    $router->get('/cadastro', 'PatientController@store');
+    $router->get('/{id}', 'PatientController@show');
+    $router->put('/{id}', 'PatientController@update');
+    $router->delete('/{id}', 'PatientController@destroy');
 });
