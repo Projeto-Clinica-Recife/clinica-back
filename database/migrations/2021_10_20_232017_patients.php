@@ -25,6 +25,7 @@ class patients extends Migration
             $table->string('numero');
             $table->string('bairro');
             $table->string('cidade');
+            $table->string('estado');
             $table->string('complemento')->nullable();
             $table->string('ponto_referencia')->nullable();
             $table->timestamps();

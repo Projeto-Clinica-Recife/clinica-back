@@ -17,6 +17,7 @@ class Patient extends Model
         'numero',
         'bairro',
         'cidade',
+        'estado',
         'complemento',
         'ponto_referencia',
     ];

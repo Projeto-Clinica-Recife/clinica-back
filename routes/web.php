@@ -38,8 +38,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     });
 });
 
-$router->group(['prefix' => 'paciente'], function () use ($router) {
-    $router->get('/cadastro', 'PatientController@store');
+$router->group(['prefix' => 'patient'], function () use ($router) {
+    $router->post('/store', 'PatientController@store');
     $router->get('/{id}', 'PatientController@show');
     $router->put('/{id}', 'PatientController@update');
     $router->delete('/{id}', 'PatientController@destroy');
