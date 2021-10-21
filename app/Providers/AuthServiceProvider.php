@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      *

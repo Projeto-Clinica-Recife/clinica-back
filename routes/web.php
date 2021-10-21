@@ -23,12 +23,19 @@ $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
 });
 
-$router->get('/home', 'Controller@teste');
+$router->get('/home', 'UsersController@get_users');
 
 
 $router->group(['prefix' => 'api'], function () use ($router) {
     //Rota de Registro
     $router->post('/register', 'UsersController@register');
+    // Rota de Login
+    $router->post('/login', 'UsersController@login');
+    
+    $router->group(['middleware' => 'auth'], function () use ($router) {
+        $router->get('/user', 'UsersController@get_user');
+        $router->post('/logout', 'UsersController@logout');
+    });
 });
 
 $router->group(['prefix' => 'paciente'], function () use ($router) {

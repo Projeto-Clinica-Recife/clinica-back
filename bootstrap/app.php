@@ -40,9 +40,16 @@ $app->routeMiddleware([
     'client.credentials' => Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
 ]);
 
+$app->middleware([
+    \App\Http\Middleware\CorsMiddleware::class
+ ]);
+
 $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
+$app->register(\Thedevsaddam\LumenRouteList\LumenRouteListServiceProvider::class);
+// $app->register(Illuminate\Session\SessionServiceProvider::class);
 $app->configure('auth');
+$app->configure('service');
 
 \Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => '/v1/oauth']);
 
