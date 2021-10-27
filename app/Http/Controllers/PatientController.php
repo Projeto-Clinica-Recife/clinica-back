@@ -34,11 +34,16 @@ class PatientController extends Controller
     }
 
     public  function show($id){
-        $query = Patient::find($id);
-        if ($query) {
+        // $query = Patient::find($id);
+        $query = Patient::where('nome','like','%'.$id.'%')
+        ->orWhere('cpf','=', $id)
+        ->get();
+        if (count($query) > 0 ) {
             return response()->json($query, 200);
-        } else {
-            $data = [
+        }else if (count($query) == 0 ) {
+            return response()->json(0, 200);
+        }else{
+             $data = [
                 'message' => 'Erro ao consultar'
             ];
             return response()->json($data, 200);
