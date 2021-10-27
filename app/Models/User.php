@@ -20,8 +20,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'type_user_id',
     ];
+
+    public function type_user(){
+        return $this->belongsTo(TypeUser::class);
+    }
 
     /**
      * The attributes excluded from the model's JSON form.

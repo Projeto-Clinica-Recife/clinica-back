@@ -65,9 +65,8 @@ class UsersController extends Controller
         }
 
         $token = $user->createToken('token')->accessToken;
-        return response()->json(
-            [
-            'token' => $token
+        return response()->json([
+            $token
         ], 200);
 
         // $api_url = env('APP_URL');
@@ -96,12 +95,7 @@ class UsersController extends Controller
         // }
     }
 
-    public function get_user(){
-        return response()->json([
-            'user' => auth()->guard('api')->user(),
-        ], 200);
-    }
-
+    
     public function logout(Request $request){
         try{
             auth()->user()->tokens()->each(function ($token) {
@@ -116,5 +110,10 @@ class UsersController extends Controller
             ]);
         }
     }
-
+    
+    public function get_user(){
+        return response()->json([
+            'user' => auth()->guard('api')->user(),
+        ], 200);
+    }
 }
