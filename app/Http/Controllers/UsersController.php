@@ -51,14 +51,17 @@ class UsersController extends Controller
         if(!$user){
             return response()->json(['error' => 'Usuário não encontrado'], 404);
         }
-        // if(!Auth::attempt($credentials)){
+        // if(!Auth::guard('web')->attempt($credentials)){
         //     $error = 'Não autorizado';
         //     $result = [
         //         'error' => $error,
         //     ];
         // }
+
         if(!Hash::check($credentials['password'], $user->password)){
-            return response()->json(false);
+            return response()->json([
+                'error' => 'Senha incorreta',
+            ], 404);
         }
 
         $token = $user->createToken('token')->accessToken;
@@ -66,6 +69,7 @@ class UsersController extends Controller
             [
             'token' => $token
         ], 200);
+
         // $api_url = env('APP_URL');
         // $client_id = env('PASSPORT_CLIENT_ID');
         // $client_secret = env('PASSPORT_CLIENT_SECRET');
