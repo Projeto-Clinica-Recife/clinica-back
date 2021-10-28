@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('cpf')->unique();
+            $table->enum('type_user', ['admin', 'doctor', 'reception']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             // $table->rememberToken();
@@ -31,6 +33,10 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('users', function(Blueprint $table){
+            // $table->foreignId('type_user_id')
+            // ->constrained()
+            // ->onDelete('cascade');
+        });
     }
 }

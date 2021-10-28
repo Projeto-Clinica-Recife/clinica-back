@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\UserInformation;
 use GuzzleHttp\Client;
 use Validator;
 
@@ -16,26 +17,55 @@ class UsersController extends Controller
         return $users;
     }
 
+    public function get_user_by_id($id){
+        $user = User::where('id', $id)->get();
+        return response()->json([
+            $user
+        ],200);
+    }
+
     public function register(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required'
-        ]);
+            'cpf' => 'required',
+            'type_user' => 'required',
+            'crm' => 'nullable',
+            'telephone' => 'required',
+            'password' => 'required',
+        ], [
+            'required' => 'O campo :attribute é obrigatório!',
+            'email.email' => 'Digite um :attribute válido!',
+            'cpf.required' => 'Digite seu cpf!',
+            'type_user.required' => 'Informe um tipo de usuário!',
+            'telephone.required' => 'Digite seu telefone!',
+            'password.required' => 'Digite sua senha!',
+        ]
+        );
 
         if($validator->fails()){
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password'],);
-        $user = User::create($input);
+        $request->password = Hash::make($request->password);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'cpf' => $request->cpf,
+            'type_user' => $request->type_user,
+            'password' => $request->password,
+        ]);
+
+        $user_information = UserInformation::create([
+            'telephone' => $request->telephone,
+            'crm' => $request->crm,
+            'user_id' => $user->id,
+        ]);
 
         $token = $user->createToken('token')->accessToken;
-        // $data['name'] = $user->name;
 
         return response([
-            'data' => $token,
+            'token' => $token,
             'message' => 'Success!',
             'status' => true,
         ]);
@@ -51,12 +81,6 @@ class UsersController extends Controller
         if(!$user){
             return response()->json(['error' => 'Usuário não encontrado'], 404);
         }
-        // if(!Auth::guard('web')->attempt($credentials)){
-        //     $error = 'Não autorizado';
-        //     $result = [
-        //         'error' => $error,
-        //     ];
-        // }
 
         if(!Hash::check($credentials['password'], $user->password)){
             return response()->json([
@@ -65,9 +89,8 @@ class UsersController extends Controller
         }
 
         $token = $user->createToken('token')->accessToken;
-        return response()->json(
-            [
-            'token' => $token
+        return response()->json([
+            $token
         ], 200);
 
         // $api_url = env('APP_URL');
@@ -96,12 +119,7 @@ class UsersController extends Controller
         // }
     }
 
-    public function get_user(){
-        return response()->json([
-            'user' => auth()->guard('api')->user(),
-        ], 200);
-    }
-
+    
     public function logout(Request $request){
         try{
             auth()->user()->tokens()->each(function ($token) {
@@ -116,5 +134,10 @@ class UsersController extends Controller
             ]);
         }
     }
-
+    
+    public function get_user(){
+        return response()->json([
+            'user' => auth()->guard('api')->user(),
+        ], 200);
+    }
 }

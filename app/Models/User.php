@@ -20,7 +20,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'cpf',
+        'type_user',
+        'password',
     ];
 
     /**
@@ -31,4 +35,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    public function user_information(){
+        return $this->belongsTo(UserInformation::class);
+    }
 }
