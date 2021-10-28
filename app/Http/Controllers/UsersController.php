@@ -20,8 +20,18 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required'
-        ]);
+            'cpf' => 'required',
+            'type_user' => 'required',
+            'crm' => 'nullable',
+            'password' => 'required',
+        ], [
+            'required' => 'O campo :attribute é obrigatório!',
+            'email.email' => 'Digite um :attribute válido!',
+            'cpf.required' => 'Digite seu cpf!',
+            'type_user.required' => 'Informe um tipo de usuário!',
+            'password.required' => 'Digite sua senha!',
+        ]
+        );
 
         if($validator->fails()){
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
@@ -35,7 +45,7 @@ class UsersController extends Controller
         // $data['name'] = $user->name;
 
         return response([
-            'data' => $token,
+            'token' => $token,
             'message' => 'Success!',
             'status' => true,
         ]);
@@ -51,12 +61,6 @@ class UsersController extends Controller
         if(!$user){
             return response()->json(['error' => 'Usuário não encontrado'], 404);
         }
-        // if(!Auth::guard('web')->attempt($credentials)){
-        //     $error = 'Não autorizado';
-        //     $result = [
-        //         'error' => $error,
-        //     ];
-        // }
 
         if(!Hash::check($credentials['password'], $user->password)){
             return response()->json([

@@ -22,13 +22,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $fillable = [
         'name',
         'email',
+        'cpf',
+        'crm',
+        'type_user',
         'password',
-        'type_user_id',
     ];
-
-    public function type_user(){
-        return $this->belongsTo(TypeUser::class);
-    }
 
     /**
      * The attributes excluded from the model's JSON form.

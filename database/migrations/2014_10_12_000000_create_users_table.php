@@ -17,9 +17,11 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('cpf')->unique();
+            $table->string('crm')->nullable();
+            $table->enum('type_user', ['admin', 'doctor', 'reception']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            // $table->foreignId('type_user_id')->constrained('type');
             // $table->rememberToken();
             $table->timestamps();
         });
