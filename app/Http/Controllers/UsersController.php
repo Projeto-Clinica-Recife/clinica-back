@@ -36,15 +36,28 @@ class UsersController extends Controller
         ], [
             'required' => 'O campo :attribute é obrigatório!',
             'email.email' => 'Digite um :attribute válido!',
-            'cpf.required' => 'Digite seu cpf!',
+            'cpf.required' => 'O campo CPF é obrigatório!',
             'type_user.required' => 'Informe um tipo de usuário!',
-            'telephone.required' => 'Digite seu telefone!',
-            'password.required' => 'Digite sua senha!',
+            'telephone.required' => 'O campo telefone é obrigatório!',
+            'password.required' => 'A senha é obrigatória!',
         ]
         );
 
         if($validator->fails()){
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+        }
+
+        $existingCpf = User::where('cpf', $request->cpf)->first();
+        $existingEmail = User::where('email', $request->email)->first();
+        if($existingCpf){
+            return response()->json([
+                'error' => 'Já existe um usuário cadastrado com esse CPF!',
+            ], 400);
+        }
+        if($existingEmail){
+            return response()->json([
+                'error' => 'Já existe um usuário cadastrado com esse e-mail!',
+            ], 400);
         }
 
         $request->password = Hash::make($request->password);
