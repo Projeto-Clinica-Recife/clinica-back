@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTypesUsersTable extends Migration
+class CreateUsersInformationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateTypesUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('types_users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('type');
-            $table->softDeletes();
+        Schema::create('user_information', function (Blueprint $table) {
+            $table->id();
+            $table->string('telephone');
+            $table->string('crm')->nullable();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
-            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -29,6 +29,8 @@ class CreateTypesUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('types_users');
+        Schema::dropIfExists('user_information', function (Blueprint $table) {
+            
+        });
     }
 }

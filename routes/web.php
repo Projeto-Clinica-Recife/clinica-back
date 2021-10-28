@@ -23,10 +23,10 @@ $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
 });
 
-$router->get('/home', 'UsersController@get_users');
-
 
 $router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('/get_users', 'UsersController@get_users');
+    $router->get('/get_user_by_id/{id}', 'UsersController@get_user_by_id');
     //Rota de Registro
     $router->post('/register', 'UsersController@register');
     // Rota de Login

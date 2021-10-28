@@ -23,8 +23,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'name',
         'email',
         'cpf',
-        'crm',
-        'telephone',
         'type_user',
         'password',
     ];
@@ -37,4 +35,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    public function user_information(){
+        return $this->belongsTo(UserInformation::class);
+    }
 }
