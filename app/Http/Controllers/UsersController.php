@@ -103,7 +103,8 @@ class UsersController extends Controller
 
         $token = $user->createToken('token')->accessToken;
         return response()->json([
-            $token
+            'token' => $token,
+            'user' => $user,
         ], 200);
 
         // $api_url = env('APP_URL');
