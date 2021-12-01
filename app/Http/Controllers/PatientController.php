@@ -34,13 +34,14 @@ class PatientController extends Controller
     }
 
     public  function show($id){
-        // $query = Patient::find($id);
-        $query = Patient::where('nome','like','%'.$id.'%')
+        $query = Patient::find($id);
+        if(!$query){
+        $queryTwo = Patient::where('nome','like','%'.$id.'%')
         ->orWhere('cpf','=', $id)
         ->get();
-        if (count($query) > 0 ) {
-            return response()->json($query, 200);
-        }else if (count($query) == 0 ) {
+        if (count($queryTwo) > 0 ) {
+            return response()->json($queryTwo, 200);
+        }else if (count($queryTwo) == 0 ) {
             return response()->json(0, 200);
         }else{
              $data = [
@@ -48,6 +49,9 @@ class PatientController extends Controller
             ];
             return response()->json($data, 200);
         }
+     }else{
+        return response()->json($query, 200);
+     }
         
     }
     public  function update(Request $request, $id){
