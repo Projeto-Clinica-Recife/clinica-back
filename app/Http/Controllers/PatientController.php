@@ -37,7 +37,7 @@ class PatientController extends Controller
         $query = Patient::find($id);
         if(!$query){
         $queryTwo = Patient::where('nome','like','%'.$id.'%')
-        ->orWhere('cpf','=', ".$id.")
+        ->orWhere('cpf','=', $id)
         ->get();
         if (count($queryTwo) > 0 ) {
             return response()->json($queryTwo, 200);
