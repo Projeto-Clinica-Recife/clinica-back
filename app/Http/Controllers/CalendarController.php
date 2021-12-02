@@ -15,6 +15,7 @@ class CalendarController extends Controller
     public function getAgender($id, $date){
         $agender = Agender::where('patient_id', $id)
         ->where('date', $date)
+        ->with('doctor:id,name')
         ->get();
         return response()->json($agender);
     }

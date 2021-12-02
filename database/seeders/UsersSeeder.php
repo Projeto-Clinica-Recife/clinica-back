@@ -40,6 +40,7 @@ class UsersSeeder extends Seeder
         ])->each(function($user){
             UserInformation::factory()->count(1)->create([
                 'user_id' => $user->id,
+                'crm' => '789456',
             ]);
         });
 

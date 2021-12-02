@@ -13,7 +13,7 @@ class UsersController extends Controller
 {
 
     public function get_users(){
-        $users = User::all();
+        $users = User::with('user_information')->get();
         return $users;
     }
 
