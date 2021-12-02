@@ -32,14 +32,12 @@ class UsersController extends Controller
             'type_user' => 'required',
             'crm' => 'nullable',
             'telephone' => 'required',
-            'password' => 'required',
         ], [
             'required' => 'O campo :attribute é obrigatório!',
             'email.email' => 'Digite um :attribute válido!',
             'cpf.required' => 'O campo CPF é obrigatório!',
             'type_user.required' => 'Informe um tipo de usuário!',
             'telephone.required' => 'O campo telefone é obrigatório!',
-            'password.required' => 'A senha é obrigatória!',
         ]
         );
 
@@ -60,13 +58,13 @@ class UsersController extends Controller
             ], 400);
         }
 
-        $request->password = Hash::make($request->password);
+        $password = Hash::make('12345678');
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'cpf' => $request->cpf,
             'type_user' => $request->type_user,
-            'password' => $request->password,
+            'password' => $password,
         ]);
 
         $user_information = UserInformation::create([
@@ -77,11 +75,11 @@ class UsersController extends Controller
 
         $token = $user->createToken('token')->accessToken;
 
-        return response([
+        return response()->json([
             'token' => $token,
             'message' => 'Success!',
             'status' => true,
-        ]);
+        ], 200);
     }
 
     public function login(Request  $request){

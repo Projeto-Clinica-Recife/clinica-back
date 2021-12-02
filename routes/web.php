@@ -20,7 +20,7 @@ $router->get('/', function () use ($router) {
 //Gera Chave aleatória para o env
 
 $router->get('/key', function() {
-    return \Illuminate\Support\Str::random(32);
+    return \Illuminate\Support\Str::random(43);
 });
 
 
@@ -39,6 +39,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'patient'], function () use ($router) {
+    $router->post('/store', 'PatientController@store');
+    $router->get('/{id}', 'PatientController@show');
+    $router->put('/{id}', 'PatientController@update');
+    $router->delete('/{id}', 'PatientController@destroy');
+});
+
+$router->group(['prefix' => 'doctor'], function () use ($router) {
+    $router->get('/doctors', 'DoctorController@getDoctors');
     $router->post('/store', 'PatientController@store');
     $router->get('/{id}', 'PatientController@show');
     $router->put('/{id}', 'PatientController@update');
