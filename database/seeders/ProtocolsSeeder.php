@@ -15,6 +15,9 @@ class ProtocolsSeeder extends Seeder
     public function run()
     {
         DB::table('protocols')->insert([
+            'descricao' => 'Protocolo Avaliação'
+        ]);
+        DB::table('protocols')->insert([
             'descricao' => 'Protocolo acelerador metabólico'
         ]);
         DB::table('protocols')->insert([
