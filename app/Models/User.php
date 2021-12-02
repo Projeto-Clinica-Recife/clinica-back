@@ -37,6 +37,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
 
     public function user_information(){
-        return $this->belongsTo(UserInformation::class);
+        return $this->hasOne(UserInformation::class);
     }
+
 }
