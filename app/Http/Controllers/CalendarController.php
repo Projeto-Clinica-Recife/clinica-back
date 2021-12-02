@@ -12,8 +12,11 @@ use Validator;
 class CalendarController extends Controller
 {
 
-    public function getAgender(){
-
+    public function getAgender($id, $date){
+        $agender = Agender::where('patient_id', $id)
+        ->where('date', $date)
+        ->get();
+        return response()->json($agender);
     }
 
     public function store(Request $request){
@@ -36,7 +39,15 @@ class CalendarController extends Controller
             return response(['message' => 'Erro na validação do formulário!', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
+        $rules = Agender::where('date', $request->date)
+        ->where('hour', $request->hour)->get();
+
         $protocols = implode(', ', $request->protocols_id);
+        if(count($rules) > 0){
+            return response()->json([
+                'message' => 'Já existe um agendamento nesta data e horário',
+            ]);
+        }
 
         $agender = Agender::create([
             'date' => $request->date,
@@ -47,7 +58,7 @@ class CalendarController extends Controller
         ]);
 
         return response()->json([
-            'token' => $agender,
+            'agender' => $agender,
             'message' => 'Success!',
         ], 200);
     }
