@@ -18,10 +18,12 @@ class UsersController extends Controller
     }
 
     public function get_user_by_id($id){
-        $user = User::where('id', $id)->get();
-        return response()->json([
+        $user = User::where('id', $id)
+        ->with('user_information')
+        ->get();
+        return response()->json(
             $user
-        ],200);
+        ,200);
     }
 
     public function register(Request $request){
@@ -76,7 +78,8 @@ class UsersController extends Controller
         $token = $user->createToken('token')->accessToken;
 
         return response()->json([
-            'user' => $user,
+            'user' => [$user],
+            'information_user' => $user_information,
             'message' => 'Success!',
             'status' => true,
         ], 200);
@@ -88,7 +91,7 @@ class UsersController extends Controller
             'password' => $request->password
         ];
 
-        $user = User::where('email', $credentials['email'])->first();
+        $user = User::where('email', $credentials['email'])->with('user_information')->first();
         if(!$user){
             return response()->json(['error' => 'Usuário não encontrado'], 404);
         }
@@ -104,31 +107,6 @@ class UsersController extends Controller
             'token' => $token,
             'user' => $user,
         ], 200);
-
-        // $api_url = env('APP_URL');
-        // $client_id = env('PASSPORT_CLIENT_ID');
-        // $client_secret = env('PASSPORT_CLIENT_SECRET');
-
-        // $guzzle  = new Client();
-
-        // $request = $guzzle->get(uri: 'https://viacep.com.br/ws/48904755/json/');
-        // return $request->getBody();
-        // try {
-        //     return $guzzle ->request('POST', 'http://localhost:8000/v1/oauth/token',[
-        //         'form_params' => [
-        //             "grant_type" => "password",
-        //             "client_id" => $client_id,
-        //             "client_secret" => $client_secret,
-        //             "username" => $request->email,
-        //             "password" => $request->password,
-        //             "scope" => ""
-        //         ]
-        //     ]);
-        // }catch(BadRequestException $e){
-        //     return response()->json([
-        //         'status' => 'error', 'message' => $e->getMessage(),
-        //     ]);
-        // }
     }
 
     

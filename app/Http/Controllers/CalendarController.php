@@ -59,6 +59,14 @@ class CalendarController extends Controller
             'patient_id' => $request->patient_id,
         ]);
 
+
+        foreach($request->protocols_id as  $protocol){
+            $agender_protocol = AgenderProtocol::create([
+                'agender_id' => $agender->id,
+                'protocol_id' => $protocol,
+            ]);
+        };
+
         return response()->json([
             'agender' => $agender,
             'message' => 'Success!',
