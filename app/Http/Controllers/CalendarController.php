@@ -11,6 +11,11 @@ use Validator;
 
 class CalendarController extends Controller
 {
+
+    public function getAgender(){
+
+    }
+
     public function store(Request $request){
 
         $validator = Validator::make($request->all(),[
@@ -31,10 +36,12 @@ class CalendarController extends Controller
             return response(['message' => 'Erro na validação do formulário!', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
+        $protocols = implode(', ', $request->protocols_id);
+
         $agender = Agender::create([
             'date' => $request->date,
             'hour' => $request->hour,
-            'protocols_id' => $request->protocols_id,
+            'protocols_id' => $protocols,
             'doctor_id' => $request->doctor_id,
             'patient_id' => $request->patient_id,
         ]);
