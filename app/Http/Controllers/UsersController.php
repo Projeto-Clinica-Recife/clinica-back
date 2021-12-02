@@ -76,7 +76,7 @@ class UsersController extends Controller
         $token = $user->createToken('token')->accessToken;
 
         return response()->json([
-            'token' => $token,
+            'user' => $user,
             'message' => 'Success!',
             'status' => true,
         ], 200);
