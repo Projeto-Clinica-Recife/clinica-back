@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
 class DoctorController extends Controller
@@ -16,6 +17,10 @@ class DoctorController extends Controller
                 'message' => 'Ops. Nenhum médico cadastra na Base de Dados.',
             ]);
         };
+
+        // $doctores = DB::table('users')
+        // ->join('user_information', 'user_information.user_id', '=', 'users.id')
+        // ->where('type_user', 'admin')->get();
 
         return response()->json(
             $doctores,

@@ -52,3 +52,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->put('/{id}', 'PatientController@update');
     $router->delete('/{id}', 'PatientController@destroy');
 });
+
+$router->group(['prefix' => 'protocol'], function () use ($router) {
+    $router->get('/protocols', 'ProtocolorController@getProtols');
+});
