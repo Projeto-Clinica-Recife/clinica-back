@@ -1,0 +1,7 @@
+
+In Filesystem.php line 187:
+                                                                                                       
+  file_put_contents(C:\laragon\www\clinica-recife\clinica-back\database\migrations/2021_12_02_031758_  
+  create__d_b::table('protocols')-.php): failed to open stream: No such file or directory              
+                                                                                                       
+

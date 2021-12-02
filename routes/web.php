@@ -56,3 +56,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
 $router->group(['prefix' => 'protocol'], function () use ($router) {
     $router->get('/protocols', 'ProtocolorController@getProtols');
 });
+
+$router->group(['prefix' => 'agender'], function () use ($router) {
+    $router->post('/store', 'CalendarController@store');
+});
