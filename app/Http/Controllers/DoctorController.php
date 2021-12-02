@@ -26,4 +26,26 @@ class DoctorController extends Controller
             $doctores,
         200);
     }
+
+    public  function show($id){
+        $query = User::find($id);
+        if(!$query){
+        $queryTwo = Patient::where('nome','like','%'.$id.'%')
+        ->orWhere('cpf','=', $id)
+        ->get();
+        if (count($queryTwo) > 0 ) {
+            return response()->json($queryTwo, 200);
+        }else if (count($queryTwo) == 0 ) {
+            return response()->json(0, 200);
+        }else{
+             $data = [
+                'message' => 'Erro ao consultar'
+            ];
+            return response()->json($data, 200);
+        }
+     }else{
+        return response()->json($query, 200);
+     }
+        
+    }
 }
