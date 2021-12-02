@@ -18,7 +18,7 @@ class CreateAgendersTable extends Migration
             $table->date('date');
             $table->time('hour');
             // $table->foreignId('protocol_id')->constrained();
-            $table->string('protocols_id');
+            // $table->string('protocols_id');
             $table->unsignedBigInteger('doctor_id');
             $table->foreignId('patient_id')->constrained();
             $table->foreign('doctor_id')->references('id')->on('users');

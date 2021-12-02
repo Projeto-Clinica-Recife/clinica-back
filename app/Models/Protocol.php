@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Protocolo extends Model
+class Protocol extends Model
 {
     protected $fillable = [
         'descricao',
@@ -14,7 +14,4 @@ class Protocolo extends Model
         return $this->belongsTo(Agender::class);
     }
 
-    public function showId($id){
-        return $this->where('id', $id);
-    }
 } 

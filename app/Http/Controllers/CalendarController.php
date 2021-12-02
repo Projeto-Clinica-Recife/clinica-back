@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Agender;
+use App\Models\Protocol;
 use Validator;
 
 class CalendarController extends Controller
@@ -25,13 +26,13 @@ class CalendarController extends Controller
         $validator = Validator::make($request->all(),[
             'date' => 'required',
             'hour' => 'required',
-            'protocols_id' => 'required',
+            // 'protocols_id' => 'required',
             'doctor_id' => 'required',
             'patient_id' => 'required',
         ],[
             'date.required' => 'O campo data é obrigatório!',
             'hour.required' => 'O campo horário é obrigatório!',
-            'protocols_id.required' => 'Por favor informe o protocolo',
+            // 'protocols_id.required' => 'Por favor informe o protocolo',
             'doctor_id.required' => 'Por favor informe o médico',
             'patient_id.required' => 'Por favor informe o paciente',
         ]);
@@ -43,7 +44,7 @@ class CalendarController extends Controller
         $rules = Agender::where('date', $request->date)
         ->where('hour', $request->hour)->get();
 
-        $protocols = implode(', ', $request->protocols_id);
+        // $protocols = implode(',', $request->protocols_id);
         if(count($rules) > 0){
             return response()->json([
                 'message' => 'Já existe um agendamento nesta data e horário',
@@ -53,7 +54,7 @@ class CalendarController extends Controller
         $agender = Agender::create([
             'date' => $request->date,
             'hour' => $request->hour,
-            'protocols_id' => $protocols,
+            // 'protocols_id' => $protocols,
             'doctor_id' => $request->doctor_id,
             'patient_id' => $request->patient_id,
         ]);
