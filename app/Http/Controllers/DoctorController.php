@@ -13,12 +13,12 @@ class DoctorController extends Controller
         $doctores = User::where('type_user', 'doctor')->get();
         if($doctores->count() <= 0){
             return response()->json([
-                'message' => 'Ops. Nenhum médico cadastra na Base de Dados',
+                'message' => 'Ops. Nenhum médico cadastra na Base de Dados.',
             ]);
         };
-        
-        return response()->json([
-            $doctores
-        ],200);
+
+        return response()->json(
+            $doctores,
+        200);
     }
 }
