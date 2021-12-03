@@ -44,7 +44,7 @@ class UsersController extends Controller
         );
 
         if($validator->fails()){
-            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+            return response(['message' => 'Validation errors', 'error' =>  $validator->errors(), 'statusCode' => 422], 422);
         }
 
         $existingCpf = User::where('cpf', $request->cpf)->first();
@@ -52,11 +52,13 @@ class UsersController extends Controller
         if($existingCpf){
             return response()->json([
                 'error' => 'Já existe um usuário cadastrado com esse CPF!',
+                'statusCode' => 400,
             ], 400);
         }
         if($existingEmail){
             return response()->json([
                 'error' => 'Já existe um usuário cadastrado com esse e-mail!',
+                'statusCode' => 400,
             ], 400);
         }
 
@@ -81,7 +83,7 @@ class UsersController extends Controller
             'user' => [$user],
             'information_user' => $user_information,
             'message' => 'Success!',
-            'status' => true,
+            'statusCode' => 200,
         ], 200);
     }
 
