@@ -15,8 +15,9 @@ class AgenderProtocol extends Migration
     {
         Schema::create('agender_protocols', function (Blueprint $table) {
             $table->id();
+            $table->enum('status',['waiting','finished', 'canceled'])->default('waiting');
             $table->foreignId('agender_id')->constrained();
-            $table->foreignId('protocol_id')->constrained();;
+            $table->foreignId('protocol_id')->constrained();
             $table->timestamps();
         });
     }

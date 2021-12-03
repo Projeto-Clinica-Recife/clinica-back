@@ -25,19 +25,22 @@ $router->get('/key', function() {
 
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/get_users', 'UsersController@get_users');
-    $router->get('/get_user_by_id/{id}', 'UsersController@get_user_by_id');
     //Rota de Registro
     $router->post('/register', 'UsersController@register');
     // Rota de Login
-    $router->post('/login', 'UsersController@login');
+    $router->post('/login', 'AuthController@login');
     
     $router->group(['middleware' => 'auth'], function () use ($router) {
-        $router->get('/user', 'UsersController@get_user');
-        $router->post('/logout', 'UsersController@logout');
+        $router->get('/user', 'AuthController@get_user');
+        $router->post('/logout', 'AuthController@logout');
     });
 });
-
+$router->group(['prefix' => 'user'], function () use ($router) {
+    $router->get('/', 'UsersController@get_users');
+    $router->get('/{id}', 'UsersController@get_user_by_id');
+    $router->put('/update/{id}', 'UsersController@update');
+    $router->delete('/{id}', 'UsersController@destroy');
+});
 $router->group(['prefix' => 'patient'], function () use ($router) {
     $router->post('/store', 'PatientController@store');
     $router->get('/{id}', 'PatientController@show');

@@ -87,49 +87,37 @@ class UsersController extends Controller
         ], 200);
     }
 
-    public function login(Request  $request){
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
+    public function update($id, Request $request){
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->cpf = $request->cpf;
+        $user->save();
 
-        $user = User::where('email', $credentials['email'])->with('user_information')->first();
-        if(!$user){
-            return response()->json(['error' => 'Usuário não encontrado'], 404);
+        $user_information = UserInformation::where('user_id', $user->id)->first();
+        $user_information->telephone = $request->telephone;
+        $user_information->crm = $request->crm;
+        $user_information->save();
+
+        if ($user && $user_information) {
+            $message = [
+                'message' => 'Usuário editado com sucesso'
+            ];
+        } else {
+            $message = [
+                'message' => 'Erro ao cadastrar'
+            ];
         }
 
-        if(!Hash::check($credentials['password'], $user->password)){
-            return response()->json([
-                'error' => 'Senha incorreta',
-            ], 404);
-        }
-
-        $token = $user->createToken('token')->accessToken;
-        return response()->json([
-            'token' => $token,
-            'user' => $user,
-        ], 200);
+        return response()->json(
+            $message, 200
+        );
     }
 
-    
-    public function logout(Request $request){
-        try{
-            auth()->user()->tokens()->each(function ($token) {
-                $token->delete();
-            });
-            return response()->json([
-                'message' => 'logout success!',
-            ]);
-        } catch(Exception $e){
-            return response()->json([
-                'message' => $e->getMessage(),
-            ]);
-        }
-    }
-    
-    public function get_user(){
-        return response()->json([
-            'user' => auth()->guard('api')->user(),
-        ], 200);
+    public function destroy($id){
+        $user = User::find($id);
+        return response()->json(
+            $user, 200
+        );
     }
 }

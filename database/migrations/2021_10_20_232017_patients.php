@@ -28,6 +28,7 @@ class patients extends Migration
             $table->string('estado');
             $table->string('complemento')->nullable();
             $table->string('ponto_referencia')->nullable();
+            $table->longText('signature')->nullable();
             $table->timestamps();
            
         });;

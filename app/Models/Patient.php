@@ -20,5 +20,6 @@ class Patient extends Model
         'estado',
         'complemento',
         'ponto_referencia',
+        'signature',
     ];
 }

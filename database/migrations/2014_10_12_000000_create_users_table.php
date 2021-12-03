@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->enum('type_user', ['admin', 'doctor', 'reception']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->softDeletes();
             // $table->rememberToken();
             $table->timestamps();
         });

@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AgenderProtocol extends Model
 {
-    protected $fillable = [      
+    protected $fillable = [
+        'status',   
         'agender_id',
         'protocol_id',
     ];
