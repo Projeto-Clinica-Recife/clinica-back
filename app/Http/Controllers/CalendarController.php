@@ -8,16 +8,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Agender;
 use App\Models\AgenderProtocol;
+use App\Models\Protocol;
+use Protocols;
 use Validator;
 
 class CalendarController extends Controller
 {
 
-    public function getAgender($id, $date){
-        $agender = Agender::where('patient_id', $id)
+    public function getAgender($id, $date){     
+        $agender = DB::table('agender_protocols')
+        ->join('agenders', 'agender_protocols.agender_id', '=', 'agenders.id')
+        ->join('protocols', 'agender_protocols.protocol_id', '=', 'protocols.id')
+        ->join('users', 'agenders.doctor_id', '=', 'users.id')
+        ->select('agenders.date','agenders.hour','protocols.descricao as protocolo', 'users.name as doctor')
+        ->where('patient_id', $id)
         ->where('date', $date)
-        ->with('doctor:id,name')
         ->get();
+        
         return response()->json($agender);
     }
 

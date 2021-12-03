@@ -55,6 +55,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
 
 $router->group(['prefix' => 'protocol'], function () use ($router) {
     $router->get('/protocols', 'ProtocolorController@getProtols');
+    $router->get('/showProtocolAgender/{id}', 'ProtocolorController@showProtocolAgender');
 });
 
 $router->group(['prefix' => 'agender'], function () use ($router) {

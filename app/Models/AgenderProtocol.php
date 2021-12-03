@@ -11,9 +11,11 @@ class AgenderProtocol extends Model
         'protocol_id',
     ];
 
-    public function doctor(){
-        return $this->belongsTo(User::class,'doctor_id');
+    public function protocol(){
+        return $this->belongsTo(Protocol::class,'protocol_id');
     }
+
+
     
 
 } 

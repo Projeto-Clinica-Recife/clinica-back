@@ -10,7 +10,7 @@ class Protocol extends Model
         'descricao',
     ];
 
-    public function Calendar(){
+    public function calendar(){
         return $this->belongsTo(Agender::class);
     }
 

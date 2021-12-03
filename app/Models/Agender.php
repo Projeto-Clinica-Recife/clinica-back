@@ -17,6 +17,10 @@ class Agender extends Model
     public function doctor(){
         return $this->belongsTo(User::class,'doctor_id');
     }
+
+    public function protocols(){
+        return $this->hasMany(AgenderProtocol::class);
+    }
     
 
 } 
