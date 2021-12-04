@@ -10,8 +10,9 @@ class UserInformation extends Model
     use HasFactory;
     
     protected $fillable = [
-        'crm',
         'telephone',
+        'crm',
+        'crm_state',
         'user_id',
     ];
 

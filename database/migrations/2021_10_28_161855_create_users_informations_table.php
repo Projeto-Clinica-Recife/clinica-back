@@ -17,6 +17,7 @@ class CreateUsersInformationsTable extends Migration
             $table->id();
             $table->string('telephone');
             $table->string('crm')->nullable();
+            $table->string('crm_state')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
