@@ -31,6 +31,7 @@ $app->withFacades();
 
 $app->withEloquent();
 
+// alias
 class_alias ( 'Barryvdh\DomPDF\Facade' , 'PDF' );
 
 // Enable auth middleware (shipped with Lumen)

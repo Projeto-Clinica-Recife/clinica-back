@@ -2,13 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Helpers\Helper;
 use PDF;
 
 class PrescriptionController extends Controller
 {
-    public function generate(){
+    public function generate(Request $request){
+        $patient_name = $request->patient_name;
+        $patient_cpf = Helper::mask($request->patient_cpf, '###.###.###-##');
+        $doctor_name = $request->doctor_name;
+        $day = $request->day;
+        $month = $request->mount;
+        $yaer = $request->yaer;
         $pdf = PDF::setPaper('a4');
-        $pdf = $pdf->loadView('prescription.prescription');
+        $pdf = $pdf->loadView('prescription.prescription', compact(
+            'patient_name',
+            'doctor_name',
+            'patient_cpf',
+            'day',
+            'month',
+            'yaer',
+        ));
         return $pdf->stream();
+        // return $doctor_name;
     }
 }
