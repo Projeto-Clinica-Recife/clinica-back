@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'd37d8699d43a930faf362cf5165a5c1bbe6dfbe8',
+    'reference' => 'ad8aaa2d1b2289a5415718ec3bf5602ae9540a54',
     'name' => 'laravel/lumen',
   ),
   'versions' => 
@@ -468,7 +468,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'd37d8699d43a930faf362cf5165a5c1bbe6dfbe8',
+      'reference' => 'ad8aaa2d1b2289a5415718ec3bf5602ae9540a54',
     ),
     'laravel/lumen-framework' => 
     array (
@@ -894,8 +894,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0.0 || 2.0.0 || 3.0.0',
-        1 => '1.0|2.0',
+        0 => '1.0|2.0',
+        1 => '1.0.0 || 2.0.0 || 3.0.0',
       ),
     ),
     'psr/simple-cache' => 
