@@ -38,6 +38,20 @@ class QueryPatientController extends Controller
          'observation' => $request->observation,
          'protocols' =>$request->protocols
       ]);
+      if($query){
+         $query = AgenderProtocol::find($request->item_id);
+        if ($query) {
+            $query->update([
+                'status' => 'finished',
+            ]);
+            return response()->json(['message' => 'Agendamento finalizado'], 200);
+        } else {
+            $data = [
+                'message' => 'Erro ao finalizar agendamento'
+            ];
+            return response()->json($data, 200);
+        }
+      }
 
       return response()->json([
          'consult' => $query,
