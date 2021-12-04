@@ -8,5 +8,5 @@ use App\Models\QueryPatient;
 
 class QueryPatientController extends Controller
 {
-   
+   //djs
 }
