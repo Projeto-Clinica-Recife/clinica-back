@@ -54,6 +54,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->get('/{id}', 'DoctorController@show');
     $router->put('/{id}', 'DoctorController@update');
     $router->delete('/{id}', 'DoctorController@destroy');
+    $router->get('/agender/{id}/{date}', 'CalendarController@getAgenderDoctor');
 });
 
 $router->group(['prefix' => 'protocol'], function () use ($router) {
@@ -64,6 +65,7 @@ $router->group(['prefix' => 'protocol'], function () use ($router) {
 $router->group(['prefix' => 'agender'], function () use ($router) {
     $router->get('/{id}/{date}', 'CalendarController@getAgender');
     $router->post('/store', 'CalendarController@store');
+    $router->put('/cancel-agender/{id}', 'CalendarController@cancelAgenderProtocol');
 });
 
 $router->group(['prefix' => 'contract'], function () use ($router) {

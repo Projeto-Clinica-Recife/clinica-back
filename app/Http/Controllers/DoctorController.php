@@ -14,7 +14,7 @@ class DoctorController extends Controller
         $doctores = User::where('type_user', 'doctor')->get();
         if($doctores->count() <= 0){
             return response()->json([
-                'message' => 'Ops. Nenhum médico cadastra na Base de Dados.',
+                'message' => 'Ops. Nenhum médico cadastrado na Base de Dados.',
             ]);
         };
 
@@ -30,8 +30,9 @@ class DoctorController extends Controller
     public  function show($id){
         $query = User::find($id);
         if(!$query){
-        $queryTwo = Patient::where('nome','like','%'.$id.'%')
+        $queryTwo = User::where('nome','like','%'.$id.'%')
         ->orWhere('cpf','=', $id)
+        ->where('type_user','=','doctor')
         ->get();
         if (count($queryTwo) > 0 ) {
             return response()->json($queryTwo, 200);
