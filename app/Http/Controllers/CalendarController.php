@@ -38,7 +38,7 @@ class CalendarController extends Controller
             ->join('patients', 'agenders.patient_id', '=', 'patients.id')
             ->select(
             'agenders.hour',
-            'patient_id',
+            'agender_id',
             'patients.nome as patient',
             'status'
             )
