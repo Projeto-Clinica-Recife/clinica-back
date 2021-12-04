@@ -30,6 +30,21 @@ class CalendarController extends Controller
         return response()->json($agender);
     }
 
+    public function getAgenderDoctor($id, $date){     
+        $agender = DB::table('agender_protocols')
+        ->join('agenders', 'agender_protocols.agender_id', '=', 'agenders.id')
+        ->join('patients', 'agenders.patient_id', '=', 'patients.id')
+        ->select('agenders.hour', 'patients.nome as patient', 'status')
+        ->where('doctor_id', $id)
+        ->where('date', $date)
+        ->where('status','<>', 'canceled')
+        ->orderBy('status', 'asc')
+        ->orderBy('agenders.hour', 'asc')
+        ->get();
+        
+        return response()->json($agender);
+    }
+
     public function store(Request $request){
 
         $validator = Validator::make($request->all(),[
