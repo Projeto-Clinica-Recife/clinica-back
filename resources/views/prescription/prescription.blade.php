@@ -14,6 +14,9 @@
             margin: 0;
             padding: 0;
         }
+        textarea{
+            border: none;
+        }
         .uppercase{
             text-transform: uppercase;
         }
@@ -27,8 +30,9 @@
             transform: translateX(36mm);
         }
         #quadro{
+            height: 800px;
+            margin-top: 20px;
             border: 2px solid #000;
-            margin-top: 30px;
             padding-left: 30px;
         }
         .title{
@@ -39,8 +43,15 @@
         .title p{
             transform: translateX(70mm);
         }
+        .body{
+
+        }
         .body p{
             font-size: 12px;
+        }
+        body .prescription{
+            font-size: 16px !important;
+            line-height: 1.5;
         }
         .footer{
             margin-top: 200px;
@@ -69,7 +80,7 @@
 <body>
     <div class="header">
         <header>
-            <img src="../../../public/img/logomarca.png" alt="">
+            {{-- <img src="storage/app/logomarca.png" alt=""> --}}
             <h2>Instituto Coelho – Emagrecimento e Performance Humana</h2>
         </header>
     </div>
@@ -94,8 +105,9 @@
                 <p class="uppercase">
                     Prescrição:
                 </p>
-                <p>
-
+                <p class="prescription">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                 </p>
             </div>
         </div>
@@ -104,11 +116,11 @@
             </div>
             <div>
                 <p class="doctor-name">
-                    {{ $doctor_name }}
+                    {{ $doctor_name }} - {{ $crm }}
                 </p>
             </div>
             <div class="date">
-                {{$day}}/{{$month}}//{{$yaer}}
+                {{ $date }}
             </div>
             <div class="linha-horizontal2">
             </div>

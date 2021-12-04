@@ -13,17 +13,17 @@ class PrescriptionController extends Controller
         $patient_name = $request->patient_name;
         $patient_cpf = Helper::mask($request->patient_cpf, '###.###.###-##');
         $doctor_name = $request->doctor_name;
-        $day = $request->day;
-        $month = $request->mount;
-        $yaer = $request->yaer;
+        $crm = $request->doctor_crm;
+        $prescription = $request->prescription;
+        $date = $request->date_current;
         $pdf = PDF::setPaper('a4');
         $pdf = $pdf->loadView('prescription.prescription', compact(
             'patient_name',
             'doctor_name',
+            'crm',
             'patient_cpf',
-            'day',
-            'month',
-            'yaer',
+            'prescription',
+            'date',
         ));
         return $pdf->stream();
         // return $doctor_name;
