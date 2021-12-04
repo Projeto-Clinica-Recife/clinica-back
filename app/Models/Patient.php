@@ -11,6 +11,7 @@ class Patient extends Model
         'data_nascimento',
         'cpf',
         'rg',
+        'dispatcher',
         'email',
         'cep',
         'rua',
@@ -20,6 +21,10 @@ class Patient extends Model
         'estado',
         'complemento',
         'ponto_referencia',
+        'nationality',
+        'profession',
+        'marital_status',
+        'contracted_plan',
         'signature',
     ];
 }

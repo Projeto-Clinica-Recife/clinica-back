@@ -51,9 +51,9 @@ $router->group(['prefix' => 'patient'], function () use ($router) {
 $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->get('/doctors', 'DoctorController@getDoctors');
     $router->post('/store', 'DoctorController@show');
-    $router->get('/{id}', 'PatientController@show');
-    $router->put('/{id}', 'PatientController@update');
-    $router->delete('/{id}', 'PatientController@destroy');
+    $router->get('/{id}', 'DoctorController@show');
+    $router->put('/{id}', 'DoctorController@update');
+    $router->delete('/{id}', 'DoctorController@destroy');
 });
 
 $router->group(['prefix' => 'protocol'], function () use ($router) {
@@ -64,4 +64,8 @@ $router->group(['prefix' => 'protocol'], function () use ($router) {
 $router->group(['prefix' => 'agender'], function () use ($router) {
     $router->get('/{id}/{date}', 'CalendarController@getAgender');
     $router->post('/store', 'CalendarController@store');
+});
+
+$router->group(['prefix' => 'contract'], function () use ($router) {
+        $router->get('/{id}', 'ContractController@generate');
 });

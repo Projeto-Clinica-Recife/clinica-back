@@ -19,6 +19,7 @@ class patients extends Migration
             $table->date('data_nascimento');
             $table->string('cpf');
             $table->string('rg');
+            $table->string('dispatcher');
             $table->string('email');
             $table->string('cep');
             $table->string('rua');
@@ -28,6 +29,10 @@ class patients extends Migration
             $table->string('estado');
             $table->string('complemento')->nullable();
             $table->string('ponto_referencia')->nullable();
+            $table->string('nationality');
+            $table->string('profession');
+            $table->string('marital_status');
+            $table->string('contracted_plan');
             $table->longText('signature')->nullable();
             $table->timestamps();
            
