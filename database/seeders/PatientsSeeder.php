@@ -13,9 +13,10 @@ class PatientsSeeder extends Seeder
     public function run(){
         DB::table('patients')->insert([
             'nome' => 'Herbet',
-            'email' => 'doctor@gmail.com',
+            'email' => 'herbet@gmail.com',
             'rg' => '12345678912',
-            'cpf' => '123456585912',
+            'cpf' => '12345658591',
+            'dispatcher' => 'SSP',
             'data_nascimento' => '2021-05-05',
             'cep' => '48904755',
             'rua' => 'Flor de Juá',
@@ -25,6 +26,11 @@ class PatientsSeeder extends Seeder
             'estado' => 'BA',
             'complemento' => 'Casa',
             'ponto_referencia' => 'No',
+            'nationality' => 'Brasileiro',
+            'profession' => 'Pedreiro',
+            'marital_status' => 'Solteiro',
+            'contracted_plan' => 'Premium',
+            'signature' => 'rqewefewdwfewwe',
         ]);
     }
 }

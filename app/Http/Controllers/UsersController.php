@@ -105,7 +105,7 @@ class UsersController extends Controller
             ];
         } else {
             $message = [
-                'message' => 'Erro ao cadastrar'
+                'message' => 'Erro ao editar'
             ];
         }
 

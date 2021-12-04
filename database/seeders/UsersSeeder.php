@@ -68,21 +68,5 @@ class UsersSeeder extends Seeder
                 'user_id' => $user->id,
             ]);
         });
-
-        DB::table('patients')->insert([
-            'nome' => 'Herbet',
-            'email' => 'herbet@gmail.com',
-            'rg' => '12345678912',
-            'cpf' => '123456585912',
-            'data_nascimento' => '2021-05-05',
-            'cep' => '48904755',
-            'rua' => 'Flor de Juá',
-            'numero' => '180',
-            'bairro' =>  'Angari',
-            'cidade' => 'Juazeiro',
-            'estado' => 'BA',
-            'complemento' => 'Casa',
-            'ponto_referencia' => 'No',
-        ]);
     }
 }

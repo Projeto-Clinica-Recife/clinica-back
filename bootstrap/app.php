@@ -31,6 +31,8 @@ $app->withFacades();
 
 $app->withEloquent();
 
+class_alias ( 'Barryvdh\DomPDF\Facade' , 'PDF' );
+
 // Enable auth middleware (shipped with Lumen)
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
@@ -47,9 +49,11 @@ $app->middleware([
 $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 $app->register(\Thedevsaddam\LumenRouteList\LumenRouteListServiceProvider::class);
+$app->register(\Barryvdh\DomPDF\ServiceProvider::class);
 // $app->register(Illuminate\Session\SessionServiceProvider::class);
 $app->configure('auth');
 $app->configure('service');
+$app->configure('dompdf');
 
 \Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => '/v1/oauth']);
 

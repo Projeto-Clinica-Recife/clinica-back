@@ -135,6 +135,7 @@ return array(
     'Database\\Factories\\UserFactory' => $baseDir . '/database/factories/UserFactory.php',
     'Database\\Factories\\UserInformationFactory' => $baseDir . '/database/factories/UserInformationFactory.php',
     'Database\\Seeders\\DatabaseSeeder' => $baseDir . '/database/seeders/DatabaseSeeder.php',
+    'Database\\Seeders\\PatientsSeeder' => $baseDir . '/database/seeders/PatientsSeeder.php',
     'Database\\Seeders\\ProtocolsSeeder' => $baseDir . '/database/seeders/ProtocolsSeeder.php',
     'Database\\Seeders\\UsersSeeder' => $baseDir . '/database/seeders/UsersSeeder.php',
     'DeepCopy\\DeepCopy' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
