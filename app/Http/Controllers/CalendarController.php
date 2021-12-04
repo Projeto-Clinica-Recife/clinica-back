@@ -20,9 +20,11 @@ class CalendarController extends Controller
         ->join('agenders', 'agender_protocols.agender_id', '=', 'agenders.id')
         ->join('protocols', 'agender_protocols.protocol_id', '=', 'protocols.id')
         ->join('users', 'agenders.doctor_id', '=', 'users.id')
-        ->select('agenders.date','agenders.hour','protocols.descricao as protocolo', 'users.name as doctor')
+        ->select('agenders.hour','protocols.descricao as protocol', 'users.name as doctor', 'status', 'agender_protocols.id')
         ->where('patient_id', $id)
         ->where('date', $date)
+        ->orderBy('status', 'asc')
+        ->orderBy('agenders.hour', 'asc')
         ->get();
         
         return response()->json($agender);
@@ -47,9 +49,15 @@ class CalendarController extends Controller
         if($validator->fails()){
             return response(['message' => 'Erro na validação do formulário!', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
-
-        $rules = Agender::where('date', $request->date)
-        ->where('hour', $request->hour)->get();
+            $rules = DB::table('agenders')
+            ->join('agender_protocols','agenders.id' , '=', 'agender_protocols.agender_id')
+            ->where('date', $request->date)
+            ->where('hour', $request->hour)
+            ->where('agender_protocols.status','<>','canceled')
+            ->get();
+        // $rules = Agender::where('date', $request->date)
+        // ->where('hour', $request->hour)->get();
+        
 
         // $protocols = implode(',', $request->protocols_id);
         if(count($rules) > 0){
@@ -78,5 +86,21 @@ class CalendarController extends Controller
             'agender' => $agender,
             'message' => 'Success!',
         ], 200);
+    }
+
+    public function cancelAgenderProtocol($id){
+        $query = AgenderProtocol::find($id);
+        if ($query) {
+            $query->update([
+                'status' => 'canceled',
+            ]);
+            return response()->json($query, 200);
+        } else {
+            $data = [
+                'message' => 'Erro ao cancelar'
+            ];
+            return response()->json($data, 200);
+        }
+
     }
 }
