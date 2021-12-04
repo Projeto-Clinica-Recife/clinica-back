@@ -115,7 +115,7 @@
             </div>
             <div>
                 <p class="doctor-name">
-                    {{ $doctor_name }} - {{ $crm }}
+                    {{ $doctor_name }} - {{ $crm }}/{{ $crm_state }}
                 </p>
             </div>
             <div class="date">
