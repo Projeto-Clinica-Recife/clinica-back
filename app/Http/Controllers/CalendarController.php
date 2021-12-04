@@ -39,6 +39,7 @@ class CalendarController extends Controller
             ->select(
             'agenders.hour',
             'agender_id',
+            'patients.id as patient_id',
             'patients.nome as patient',
             'status'
             )
