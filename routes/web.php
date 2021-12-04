@@ -55,6 +55,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->put('/{id}', 'DoctorController@update');
     $router->delete('/{id}', 'DoctorController@destroy');
     $router->get('/agender/{id}/{date}', 'CalendarController@getAgenderDoctor');
+    $router->post('/query-patient', 'QueryPatientController@store');
 });
 
 $router->group(['prefix' => 'protocol'], function () use ($router) {
