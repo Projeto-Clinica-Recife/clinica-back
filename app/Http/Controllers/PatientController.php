@@ -33,6 +33,18 @@ class PatientController extends Controller
         return response()->json($data, 200);
     }
 
+    public function showById($id){
+        $query = Patient::find($id);
+        if (!$query) {
+            $data = [
+                'message' => 'Paciente não encontrado'
+            ];
+            return response()->json($data, 200);
+        }else{
+            return response()->json($query, 200);
+        }
+    }
+
     public  function show($id){
         $query = Patient::find($id);
         if(!$query){

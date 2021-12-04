@@ -44,6 +44,7 @@ $router->group(['prefix' => 'user'], function () use ($router) {
 $router->group(['prefix' => 'patient'], function () use ($router) {
     $router->post('/store', 'PatientController@store');
     $router->get('/{id}', 'PatientController@show');
+    $router->get('/showby/{id}', 'PatientController@showById');
     $router->put('/{id}', 'PatientController@update');
     $router->delete('/{id}', 'PatientController@destroy');
 });
