@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\QueryPatient;
+use App\Models\AgenderProtocol;
 use Validator;
 
 class QueryPatientController extends Controller

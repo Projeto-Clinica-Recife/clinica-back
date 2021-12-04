@@ -41,7 +41,8 @@ class CalendarController extends Controller
             'agender_id',
             'patients.id as patient_id',
             'patients.nome as patient',
-            'status'
+            'status',
+            'agender_protocols.id as id'
             )
             ->where('doctor_id', $id)
             ->where('date', $date)
