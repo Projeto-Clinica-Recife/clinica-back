@@ -71,3 +71,5 @@ $router->group(['prefix' => 'agender'], function () use ($router) {
 $router->group(['prefix' => 'contract'], function () use ($router) {
         $router->get('/{id}', 'ContractController@generate');
 });
+
+$router->get('/generate/prescription', 'PrescriptionController@generate');

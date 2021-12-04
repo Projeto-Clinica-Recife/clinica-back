@@ -101,12 +101,14 @@ class UsersController extends Controller
         $user_information->save();
 
         if ($user && $user_information) {
-            $message = [
-                'message' => 'Usuário editado com sucesso'
-            ];
+            return response()->json([
+                'message' => 'Editado com sucesso!',
+                'statusCode' => 200,
+            ], 200);
         } else {
             $message = [
-                'message' => 'Erro ao editar'
+                'message' => 'Houve erro ao editar',
+                'StatusCode' => 400
             ];
         }
 
