@@ -97,6 +97,7 @@ class UsersController extends Controller
         $user_information = UserInformation::where('user_id', $user->id)->first();
         $user_information->telephone = $request->telephone;
         $user_information->crm = $request->crm;
+        $user_information->crm_state = $request->crm_state;
         $user_information->save();
 
         if ($user && $user_information) {

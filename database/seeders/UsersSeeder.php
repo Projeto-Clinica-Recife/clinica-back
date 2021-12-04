@@ -40,6 +40,8 @@ class UsersSeeder extends Seeder
         ])->each(function($user){
             UserInformation::factory()->count(1)->create([
                 'telephone' => '74856966854',
+                'crm' => '456235',
+                'crm_state' => 'PE',
                 'user_id' => $user->id,
             ]);
         });
@@ -54,6 +56,7 @@ class UsersSeeder extends Seeder
             UserInformation::factory()->count(1)->create([
                 'user_id' => $user->id,
                 'crm' => '789456',
+                'crm_state' => 'BA',
             ]);
         });
 
