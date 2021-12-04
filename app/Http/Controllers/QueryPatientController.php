@@ -38,6 +38,7 @@ class QueryPatientController extends Controller
          'observation' => $request->observation,
          'protocols' =>$request->protocols
       ]);
+      
       if($query){
          $query = AgenderProtocol::find($request->item_id);
         if ($query) {
