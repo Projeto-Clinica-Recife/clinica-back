@@ -15,45 +15,53 @@ use Validator;
 class CalendarController extends Controller
 {
 
-    public function getAgender($id, $date){     
+    public function getAgender($id, $date)
+    {
         $agender = DB::table('agender_protocols')
-        ->join('agenders', 'agender_protocols.agender_id', '=', 'agenders.id')
-        ->join('protocols', 'agender_protocols.protocol_id', '=', 'protocols.id')
-        ->join('users', 'agenders.doctor_id', '=', 'users.id')
-        ->select('agenders.hour','protocols.descricao as protocol', 'users.name as doctor', 'status', 'agender_protocols.id')
-        ->where('patient_id', $id)
-        ->where('date', $date)
-        ->orderBy('status', 'asc')
-        ->orderBy('agenders.hour', 'asc')
-        ->get();
-        
+            ->join('agenders', 'agender_protocols.agender_id', '=', 'agenders.id')
+            ->join('protocols', 'agender_protocols.protocol_id', '=', 'protocols.id')
+            ->join('users', 'agenders.doctor_id', '=', 'users.id')
+            ->select('agenders.hour', 'protocols.descricao as protocol', 'users.name as doctor', 'status', 'agender_protocols.id')
+            ->where('patient_id', $id)
+            ->where('date', $date)
+            ->orderBy('status', 'asc')
+            ->orderBy('agenders.hour', 'asc')
+            ->get();
+
         return response()->json($agender);
     }
 
-    public function getAgenderDoctor($id, $date){     
+    public function getAgenderDoctor($id, $date)
+    {
         $agender = DB::table('agender_protocols')
-        ->join('agenders', 'agender_protocols.agender_id', '=', 'agenders.id')
-        ->join('patients', 'agenders.patient_id', '=', 'patients.id')
-        ->select('agenders.hour', 'patients.nome as patient', 'status')
-        ->where('doctor_id', $id)
-        ->where('date', $date)
-        ->where('status','<>', 'canceled')
-        ->orderBy('status', 'asc')
-        ->orderBy('agenders.hour', 'asc')
-        ->get();
-        
+            ->join('agenders', 'agender_protocols.agender_id', '=', 'agenders.id')
+            ->join('patients', 'agenders.patient_id', '=', 'patients.id')
+            ->select(
+            'agenders.hour',
+            'patient_id',
+            'patients.nome as patient',
+            'status'
+            )
+            ->where('doctor_id', $id)
+            ->where('date', $date)
+            ->where('status', '<>', 'canceled')
+            ->orderBy('status', 'asc')
+            ->orderBy('agenders.hour', 'asc')
+            ->get();
+
         return response()->json($agender);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'date' => 'required',
             'hour' => 'required',
             // 'protocols_id' => 'required',
             'doctor_id' => 'required',
             'patient_id' => 'required',
-        ],[
+        ], [
             'date.required' => 'O campo data é obrigatório!',
             'hour.required' => 'O campo horário é obrigatório!',
             // 'protocols_id.required' => 'Por favor informe o protocolo',
@@ -61,21 +69,21 @@ class CalendarController extends Controller
             'patient_id.required' => 'Por favor informe o paciente',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response(['message' => 'Erro na validação do formulário!', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
-            $rules = DB::table('agenders')
-            ->join('agender_protocols','agenders.id' , '=', 'agender_protocols.agender_id')
+        $rules = DB::table('agenders')
+            ->join('agender_protocols', 'agenders.id', '=', 'agender_protocols.agender_id')
             ->where('date', $request->date)
             ->where('hour', $request->hour)
-            ->where('agender_protocols.status','<>','canceled')
+            ->where('agender_protocols.status', '<>', 'canceled')
             ->get();
         // $rules = Agender::where('date', $request->date)
         // ->where('hour', $request->hour)->get();
-        
+
 
         // $protocols = implode(',', $request->protocols_id);
-        if(count($rules) > 0){
+        if (count($rules) > 0) {
             return response()->json([
                 'message' => 'Já existe um agendamento nesta data e horário',
             ]);
@@ -90,7 +98,7 @@ class CalendarController extends Controller
         ]);
 
 
-        foreach($request->protocols_id as  $protocol){
+        foreach ($request->protocols_id as  $protocol) {
             $agender_protocol = AgenderProtocol::create([
                 'agender_id' => $agender->id,
                 'protocol_id' => $protocol,
@@ -103,7 +111,8 @@ class CalendarController extends Controller
         ], 200);
     }
 
-    public function cancelAgenderProtocol($id){
+    public function cancelAgenderProtocol($id)
+    {
         $query = AgenderProtocol::find($id);
         if ($query) {
             $query->update([
@@ -116,6 +125,5 @@ class CalendarController extends Controller
             ];
             return response()->json($data, 200);
         }
-
     }
 }
