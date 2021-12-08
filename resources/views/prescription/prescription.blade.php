@@ -14,6 +14,9 @@
             margin: 0;
             padding: 0;
         }
+        textarea{
+            border: none;
+        }
         .uppercase{
             text-transform: uppercase;
         }
@@ -27,8 +30,10 @@
             transform: translateX(36mm);
         }
         #quadro{
+            height: 800px;
+            margin-top: 20px;
             border: 2px solid #000;
-            padding-left: 20px;
+            padding-left: 30px;
         }
         .title{
             align-items: center;
@@ -36,58 +41,92 @@
             margin-top: 10px;
         }
         .title p{
-            transform: translateX(60mm);
+            transform: translateX(70mm);
+        }
+        .body{
+            min-height: 600px
         }
         .body p{
             font-size: 12px;
         }
+        body .prescription{
+            font-size: 16px !important;
+            line-height: 1.5;
+        }
         .footer{
-            margin-top: 50px;
+            /* margin-top: 200px; */
             margin-bottom: 50px;
             display: flex;
             justify-content:space-between;
         }
+        .footer p{
+            margin-top:20px;
+        }
+        .date{
+            transform: translate(127mm, -25px)
+        }
         .linha-horizontal{
         width: 300px;
         border: 0.1px solid #000;
+        margin-bottom: 5px;
+        }
+        .linha-horizontal2{
+        width: 180px;
+        border: 0.1px solid #000;
+        transform: translateX(430px)
         }
     </style>
 </head>
 <body>
     <div class="header">
         <header>
-            <img src="../../../public/img/logomarca.png" alt="">
+            {{-- <img src="storage/app/logomarca.png" alt=""> --}}
             <h2>Instituto Coelho – Emagrecimento e Performance Humana</h2>
         </header>
     </div>
     <div id="quadro">
         <div class="title">
             <div>
-                <p class=uppercase>Receituário</p>
+                <p class=uppercase>
+                    <strong>Receituário</strong>
+                </p>
             </div>
         </div>
         <div class="body">
             <div>
-                <p class="uppercase">
-                    Paciente:
+                <p class="uppercase patient-name">
+                    Paciente: {{ $patient_name }}
                 </p>
-                <p>
-                    CPF: 
+                <p class="uppercase patient_cpf">
+                    CPF: {{ $patient_cpf }}
                 </p>
             </div>
             <div>
-                <p>
+                <p class="uppercase">
                     Prescrição:
                 </p>
-                <p>
-
+                <p class="prescription">
+                    {{ $prescription }}
                 </p>
             </div>
         </div>
         <div class="footer">
             <div class="linha-horizontal">
             </div>
-            <div class="linha-horizontal" style="transform: translateX(50px)">
+            <div>
+                <p class="doctor-name">
+                    {{ $doctor_name }} - {{ $crm }}/{{ $crm_state }}
+                </p>
+            </div>
+            <div class="date">
+                {{ $date }}
+            </div>
+            <div class="linha-horizontal2">
+            </div>
+            <div style="transform: translateX(485px)">
+                <p class="doctor-name">
+                    Recife/PE
+                </p>
             </div>
         </div>
     </div>
