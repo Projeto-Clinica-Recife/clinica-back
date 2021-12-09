@@ -46,7 +46,6 @@ class QueryPatientController extends Controller
             $query->update([
                 'status' => 'finished',
             ]);
-            return response()->json(['message' => 'Agendamento finalizado'], 200);
         } else {
             $data = [
                 'message' => 'Erro ao finalizar agendamento'
@@ -66,9 +65,11 @@ class QueryPatientController extends Controller
         $query_patient = DB::table('patients')
         ->join('query_patients', 'patients.id', '=', 'query_patients.patient_id')
         ->join('agenders', 'patients.id', '=', 'agenders.patient_id')
+        ->join('agender_protocols', 'agender_protocols.agender_id', '=', 'agenders.id')
         ->join('users', 'agenders.doctor_id', '=', 'users.id')
         ->select('agenders.hour', 'users.name', 'query_patients.plaint', 'query_patients.observation')
         ->where('query_patients.patient_id', $id)
+        // ->where('agender_protocols.agender_id', 'agenders.id')
         ->get();
 
     return $query_patient;

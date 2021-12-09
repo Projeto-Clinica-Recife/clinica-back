@@ -29,7 +29,6 @@ class PatientsSeeder extends Seeder
             'nationality' => 'Brasileiro',
             'profession' => 'Pedreiro',
             'marital_status' => 'Solteiro',
-            'contracted_plan' => 'Premium',
             'signature' => 'rqewefewdwfewwe',
         ]);
     }

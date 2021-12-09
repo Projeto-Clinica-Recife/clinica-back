@@ -24,7 +24,6 @@ class Patient extends Model
         'nationality',
         'profession',
         'marital_status',
-        'contracted_plan',
         'signature',
     ];
 
