@@ -9,6 +9,7 @@ class QueryPatient extends Model
     protected $fillable = [
         'doctor_id',
         'patient_id',
+        'agender_protocol_id',
         'plaint',
         'observation',
         'protocols'
