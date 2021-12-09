@@ -25,6 +25,10 @@ class Agender extends Model
     public function protocols(){
         return $this->hasMany(AgenderProtocol::class);
     }
+
+    public function prescription(){
+        return $this->belongsTo(Prescription::class);
+    }
     
 
 } 

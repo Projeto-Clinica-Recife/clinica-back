@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\QueryPatient;
+use App\Models\Patient;
 use App\Models\AgenderProtocol;
 use Validator;
 
@@ -58,5 +59,18 @@ class QueryPatientController extends Controller
          'consult' => $query,
          'message' => 'Success!',
      ], 200);
+   }
+
+   public function getQueryPatient($id) {
+
+        $query_patient = DB::table('patients')
+        ->join('query_patients', 'patients.id', '=', 'query_patients.patient_id')
+        ->join('agenders', 'patients.id', '=', 'agenders.patient_id')
+        ->join('users', 'agenders.doctor_id', '=', 'users.id')
+        ->select('agenders.hour', 'users.name', 'query_patients.plaint', 'query_patients.observation')
+        ->where('query_patients.patient_id', $id)
+        ->get();
+
+    return $query_patient;
    }
 }

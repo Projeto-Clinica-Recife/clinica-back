@@ -44,7 +44,7 @@
         <p>Nome: {{$patient->nome}}</p>
         <p>Nacionalidade: {{$patient->nationality}}; Estado Civil: {{$patient->marital_status}}; Profissão: {{$patient->profession}}</p>
         <p>RG: {{$patient->rg}},   Órgão Expedidor: {{$patient->dispatcher}};</p>
-        <p>CPF/MF: {{$patient->cpf}}</p>
+        <p>CPF/MF: {{$patient_cpf_formatted}}</p>
         <p>Endereço: Rua {{$patient->rua}}, nº {{$patient->numero}}</p> <p>Complemento: {{$patient->complemento}}, Bairro: {{$patient->bairro}}, Cidade: {{$patient->cidade}},</p>
         <p>Estado: {{$patient->estado}}, CEP: {{$patient->cep}}, E-mail: {{$patient->email}}</p>
         <p>Plano Contratado: {{$patient->contracted_plan}}</p>

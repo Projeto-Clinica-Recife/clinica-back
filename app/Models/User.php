@@ -26,6 +26,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'email',
         'cpf',
         'type_user',
+        'first_access',
         'password',
     ];
 
@@ -40,6 +41,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function user_information(){
         return $this->hasOne(UserInformation::class);
+    }
+
+    public function query_patient(){
+        return $this->hasMany(QueryPatient::class);
     }
 
 }

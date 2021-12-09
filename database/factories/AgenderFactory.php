@@ -11,7 +11,7 @@ class AgenderFactory extends Factory
 
     public function definition(){
         return [
-            'date' => $this->faker->date(),
+            'date' => date('Y-m-d', strtotime('+4 days')),
             'hour' => $this->faker->time(),
         ];
     }

@@ -7,29 +7,49 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Patient;
-use App\Models\User;
+use App\Models\Contract;
 use App\Helpers\Helper;
+use \Illuminate\Support\Str;
 use PDF;
 use Closure;
 
 class ContractController extends Controller
 {
     public function generate($id){
-        $patient = Patient::where('id', $id)
-        ->first();
-        $patient->cpf = Helper::mask($patient->cpf, '###.###.###.-##');
+        $patient = Patient::where('id', $id)->first();
+        $patient_cpf_formatted = Helper::mask($patient->cpf, '###.###.###-##');
         $patient->cep = Helper::mask($patient->cep, '#####-###');
+
+        $contract_id = Str::uuid();
+
         $pdf = PDF::setPaper('a4');
-        // $pdf = $pdf->loadView('contract.contract-layout', compact('patient'));
-        $pdf = $pdf->loadView('contract.contract-layout', compact('patient'));
-        $file_name = $patient->nome . '_' . $patient->cpf . '_' . date('d-m-Y') . '.pdf';
-        // file_put_contents('contracts_pdf/'.$file_name, $pdf->output());
-        $file = file_get_contents(base_path('public/contracts_pdf/') . 'Herbet_123.456.585.-91_04-12-2021.pdf');
-        $urlFile = base_path('public/contracts_pdf/') . 'Herbet_123.456.585.-91_04-12-2021.pdf';
-        return $pdf->stream();
+        $pdf = $pdf->loadView('contract.contract-layout', compact('patient', 'patient_cpf_formatted'));
+        $file_name = $contract_id . '_' . $patient->nome . '_' . $patient->cpf . '.pdf';
+        file_put_contents('contracts_pdf/' . $file_name, $pdf->output());
+        $file = file_get_contents(base_path('public/contracts_pdf/') . $file_name);
+        $base64 = base64_encode($file);
+
+        $contract = Contract::create([
+            'id' => $contract_id,
+            'patient_id' => $id,
+            'file_name' => $file_name,
+        ]);
+
+        if(!$contract){
+            return response()->json('Houve algum erro ao gerar o contrato');
+        }
+
+        return $base64;
     }
 
-    public function contractor_download($name){
-        
+    public function get_contractor_pdf($contract_id){
+        $contract = Contract::where('id', $contract_id)->first();
+        $file_name = $contract->file_name;
+        $file_path = base_path('public/contracts_pdf/' . $file_name);
+        $file = file_get_contents(base_path('public/contracts_pdf/') . $file_name);
+        $base64 = base64_encode($file);
+        return response()->json(
+            $base64,
+        );
     }
 }

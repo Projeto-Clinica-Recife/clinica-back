@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('cpf')->unique();
             $table->enum('type_user', ['admin', 'doctor', 'reception']);
-            $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('first_access')->default(true);
             $table->string('password');
             $table->softDeletes();
             // $table->rememberToken();

@@ -30,6 +30,7 @@ return array(
     'App\\Models\\Agender' => $baseDir . '/app/Models/Agender.php',
     'App\\Models\\AgenderProtocol' => $baseDir . '/app/Models/AgenderProtocol.php',
     'App\\Models\\Patient' => $baseDir . '/app/Models/Patient.php',
+    'App\\Models\\Prescription' => $baseDir . '/app/Models/Prescription.php',
     'App\\Models\\Protocol' => $baseDir . '/app/Models/Protocol.php',
     'App\\Models\\QueryPatient' => $baseDir . '/app/Models/QueryPatient.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',

@@ -27,4 +27,12 @@ class Patient extends Model
         'contracted_plan',
         'signature',
     ];
+
+    public function contract(){
+        return $this->hasOne(Contract::class);
+    }
+
+    public function query_patient(){
+        return $this->hasMany(QueryPatient::class);
+    }
 }

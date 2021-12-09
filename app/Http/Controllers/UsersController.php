@@ -92,6 +92,7 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->cpf = $request->cpf;
+        $user->password = $request->password;
         $user->save();
 
         $user_information = UserInformation::where('user_id', $user->id)->first();
@@ -117,10 +118,41 @@ class UsersController extends Controller
         );
     }
 
+    public function  redefine_password($id, Request $request){
+        $user = User::where('id', $id)->first();
+        $user->password = Hash::make($request->password);
+        $save_password = $user->save();
+
+        if(!$save_password){
+            return response()->json([
+                "message" => "Erro ao alterar a senha!",
+                "statusCode" => 400,
+            ], 400);
+        }
+
+        return response()->json([
+             "message" => "Senha alterada com sucesso!",
+             'user' => $user,
+             "statusCode" => 200,
+        ], 200);
+    }
+
     public function destroy($id){
         $user = User::find($id);
         return response()->json(
             $user, 200
         );
+    }
+
+    public function first_access($id){
+        $user = User::find($id);
+        if($user->first_access){
+            $user->first_access = false;
+            $save = $user->save();
+            if(!$save){
+                return false;
+            }
+        }
+        return true;
     }
 }

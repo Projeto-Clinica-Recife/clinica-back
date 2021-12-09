@@ -23,6 +23,7 @@ class UsersSeeder extends Seeder
             'name' => 'Gil',
             'email' => 'admin@gmail.com',
             'cpf' => '987654321',
+            'first_access' => false,
             'password' => Hash::make('1234'),
         ])->each(function($user){
             UserInformation::factory()->count(1)->create([
@@ -36,6 +37,7 @@ class UsersSeeder extends Seeder
             'email' => 'ana@gmail.com',
             'cpf' => '2134667895',
             'type_user' => 'doctor',
+            'first_access' => false,
             'password' => Hash::make('1234'),
         ])->each(function($user){
             UserInformation::factory()->count(1)->create([

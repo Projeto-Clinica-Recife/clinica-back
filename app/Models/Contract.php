@@ -3,24 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Support\Str;
 
-class QueryPatient extends Model
+class Contract extends Model
 {
     protected $fillable = [
-        'doctor_id',
+        'id',
         'patient_id',
-        'plaint',
-        'observation',
-        'protocols'
+        'file_name',
     ];
 
     public function patient(){
         return $this->belongsTo(Patient::class);
     }
-
-    public function doctor(){
-        return $this->belongsTo(Patient::class);
-    }
-    
-
-} 
+}

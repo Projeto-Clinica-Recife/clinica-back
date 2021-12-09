@@ -39,8 +39,11 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     $router->get('/', 'UsersController@get_users');
     $router->get('/{id}', 'UsersController@get_user_by_id');
     $router->put('/update/{id}', 'UsersController@update');
+    $router->put('/password/{id}', 'UsersController@redefine_password');
+    $router->put('/first_access/{id}', 'UsersController@first_access');
     $router->delete('/{id}', 'UsersController@destroy');
 });
+
 $router->group(['prefix' => 'patient'], function () use ($router) {
     $router->post('/store', 'PatientController@store');
     $router->get('/{id}', 'PatientController@show');
@@ -57,6 +60,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->delete('/{id}', 'DoctorController@destroy');
     $router->get('/agender/{id}/{date}', 'CalendarController@getAgenderDoctor');
     $router->post('/query-patient', 'QueryPatientController@store');
+    $router->get('/patient/{id}', 'QueryPatientController@getQueryPatient');
 });
 
 $router->group(['prefix' => 'protocol'], function () use ($router) {
@@ -71,7 +75,11 @@ $router->group(['prefix' => 'agender'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'contract'], function () use ($router) {
-        $router->get('/{id}', 'ContractController@generate');
+        $router->post('/{id}', 'ContractController@generate');
+        $router->get('/{contract_id}', 'ContractController@get_contractor_pdf');
 });
 
-$router->get('/generate/prescription', 'PrescriptionController@generate');
+$router->group(['prefix' => 'prescription'], function () use ($router){
+    $router->post('/generate', 'PrescriptionController@generate');
+    $router->get('/get-pdf/{prescription_id}', 'PrescriptionController@get_prescription_pdf');
+});

@@ -29,6 +29,7 @@ class AuthController extends Controller
         return response()->json([
             'token' => $token,
             'user' => $user,
+            'statusCode' => 200,
         ], 200);
     }
 
@@ -48,8 +49,10 @@ class AuthController extends Controller
     }
 
     public function get_user(){
+        $user = auth()->guard('api')->user();
+        $user = User::where('id', $user->id)->with('user_information')->first();
         return response()->json([
-            'user' => auth()->guard('api')->user(),
+            'user' => $user,
         ], 200);
     }
 }
