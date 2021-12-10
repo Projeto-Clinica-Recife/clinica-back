@@ -18,6 +18,8 @@ class CreatePatientsPlansTable extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('plan_id');
             $table->string('form_of_payment');
+            $table->integer('discount')->nullable();
+            $table->date('dueDate');
             $table->foreign('patient_id')->references('id')->on('patients');
             $table->foreign('plan_id')->references('id')->on('plans');
             $table->timestamps();

@@ -75,7 +75,7 @@ $router->group(['prefix' => 'agender'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'contract'], function () use ($router) {
-        $router->post('/{id}', 'ContractController@generate');
+        $router->post('/{patient_id}', 'ContractController@generate');
         $router->get('/{contract_id}', 'ContractController@get_contractor_pdf');
 });
 

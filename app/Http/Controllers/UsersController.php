@@ -89,33 +89,41 @@ class UsersController extends Controller
 
     public function update($id, Request $request){
         $user = User::find($id);
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->cpf = $request->cpf;
-        $user->password = $request->password;
+        if ($request->password != null && $request->password != '') {
+            $user->password = Hash::make($request->password);
+            $this->first_access($id);
+        }
         $user->save();
 
         $user_information = UserInformation::where('user_id', $user->id)->first();
         $user_information->telephone = $request->telephone;
-        $user_information->crm = $request->crm;
-        $user_information->crm_state = $request->crm_state;
+
+        if ($user->type_user == 'doctor') {
+            $user_information->crm = $request->crm;
+            $user_information->crm_state = $request->crm_state;
+        }
+        
         $user_information->save();
 
-        if ($user && $user_information) {
+        if (!$user || !$user_information) {
             return response()->json([
-                'message' => 'Editado com sucesso!',
-                'statusCode' => 200,
+                'message' => 'Houve erro ao editar!',
+                'statusCode' => 400
             ], 200);
-        } else {
-            $message = [
-                'message' => 'Houve erro ao editar',
-                'StatusCode' => 400
-            ];
         }
 
-        return response()->json(
-            $message, 200
-        );
+        $userSave = User::where('id', $id)
+        ->with('user_information')->first();
+
+        return response()->json([
+            'message' => 'Perfil editado com sucesso!',
+            'statusCode' => 200,
+            'user' => $userSave,
+        ], 200);
     }
 
     public function  redefine_password($id, Request $request){

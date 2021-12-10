@@ -10,5 +10,7 @@ class PatientPlan extends Model
         'patient_id',
         'plan_id',
         'form_of_payment',
+        'discount',
+        'dueDate'
     ];
 }

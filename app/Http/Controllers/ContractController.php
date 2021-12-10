@@ -15,8 +15,8 @@ use Closure;
 
 class ContractController extends Controller
 {
-    public function generate($id){
-        $patient = Patient::where('id', $id)->first();
+    public function generate($patient_id, Request $request){
+        $patient = Patient::where('id', $patient_id)->first();
         $patient_cpf_formatted = Helper::mask($patient->cpf, '###.###.###-##');
         $patient->cep = Helper::mask($patient->cep, '#####-###');
 
@@ -31,7 +31,7 @@ class ContractController extends Controller
 
         $contract = Contract::create([
             'id' => $contract_id,
-            'patient_id' => $id,
+            'patient_id' => $patient_id,
             'file_name' => $file_name,
         ]);
 
@@ -44,6 +44,13 @@ class ContractController extends Controller
 
     public function get_contractor_pdf($contract_id){
         $contract = Contract::where('id', $contract_id)->first();
+
+        if(!$contract){
+            return response()->json([
+                'error' => 'Contrato não encontrado'
+            ], 404);
+        };
+
         $file_name = $contract->file_name;
         $file_path = base_path('public/contracts_pdf/' . $file_name);
         $file = file_get_contents(base_path('public/contracts_pdf/') . $file_name);
