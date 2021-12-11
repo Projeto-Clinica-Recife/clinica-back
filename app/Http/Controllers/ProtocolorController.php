@@ -18,5 +18,22 @@ class ProtocolorController extends Controller
         200);
     }
 
+    public function store(Request $request){
+        $protocol = Protocol::create([
+            'descricao' => $request->description,
+        ]);
+
+        if(!$protocol){
+            return response()->json([
+                'error' => 'Erro ao cadastrar o protocolo!',
+            ]);
+        };
+
+        return response()->json([
+            'message' => 'Protocolo cadastrado com sucesso!',
+            'protocolo' => $protocol,
+        ],200);
+    }
+
 
 }
