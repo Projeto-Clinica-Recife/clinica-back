@@ -73,5 +73,18 @@ class UsersSeeder extends Seeder
                 'user_id' => $user->id,
             ]);
         });
+
+        User::factory()->count(1)->create([
+            'name' => 'AnaR',
+            'email' => 'anar@gmail.com',
+            'cpf' => '85965478232',
+            'type_user' => 'reception',
+            'first_access' => false,
+            'password' => Hash::make('1234'),
+        ])->each(function($user){
+            UserInformation::factory()->count(1)->create([
+                'user_id' => $user->id,
+            ]);
+        });
     }
 }
