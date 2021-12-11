@@ -65,12 +65,15 @@ class QueryPatientController extends Controller
 
         $query_patient = DB::table('patients')
         ->join('query_patients', 'patients.id', '=', 'query_patients.patient_id')
+        // ->join('patients_plans', 'patients.id', '=', 'patients_plans.patient_id')
         ->join('agender_protocols', 'query_patients.agender_protocol_id', '=', 'agender_protocols.id')
         ->join('agenders', 'agender_protocols.agender_id', '=', 'agenders.id')
         ->join('users', 'agenders.doctor_id', '=', 'users.id')
-        ->select('agenders.hour', 'users.name as doctor_name', 'query_patients.plaint', 'query_patients.observation')
+        ->join('user_information', 'users.id', '=', 'user_information.user_id')
+        ->select('agenders.date', 'agenders.hour',
+        'users.name as doctor_name', 'user_information.crm as doctor_crm', 'user_information.crm_state as doctor_crm_state',
+        'query_patients.plaint', 'query_patients.observation', 'query_patients.protocols')
         ->where('patients.id', $id)
-        // ->where('agender_protocols.agender_id', '=', 'agenders.id')
         ->get();
 
         return $query_patient;

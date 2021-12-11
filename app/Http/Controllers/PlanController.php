@@ -36,7 +36,9 @@ class PlanController extends Controller
     }
 
     public function get_plans(){
-        $plans = Plan::all();
+        $plans = DB::table('plans')
+        ->orderBy('status', 'asc')
+        ->get();
         foreach($plans as $plan){
             $plan->value = number_format($plan->value, 2, ',', '.');
             switch($plan->status){
@@ -63,6 +65,32 @@ class PlanController extends Controller
             'status' => 'inactive',
         ]);
         
-        return response()->json($plan);
+        return response()->json([
+            'message' => 'Plano cancelado com sucesso!',
+            'plan' => $plan,
+        ], 200);
+    }
+
+    public function reactivatePlan($id){
+        $plan = Plan::where('id', $id)->first();
+
+        if(!$plan){
+            return response()->json([
+                'message' => 'Houve algum erro ao cancelar o Plano!',
+            ]);
+        }
+        if ($plan->status == 'active') {
+            return response()->json([
+                'message' => 'Esse plano já está inativo!',
+            ]);
+        }
+        $plan->update([
+            'status' => 'active',
+        ]);
+        
+        return response()->json([
+            'message' => 'Plano reativado com sucesso!',
+            'plan' => $plan,
+        ],200);
     }
 }
