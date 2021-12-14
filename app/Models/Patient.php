@@ -34,4 +34,8 @@ class Patient extends Model
     public function query_patient(){
         return $this->hasMany(QueryPatient::class);
     }
+
+    public function patient_plan(){
+        return $this->hasMany(PatientPlan::class);
+    }
 }

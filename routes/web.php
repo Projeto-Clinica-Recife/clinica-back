@@ -46,8 +46,10 @@ $router->group(['prefix' => 'user'], function () use ($router) {
 
 $router->group(['prefix' => 'patient'], function () use ($router) {
     $router->post('/store', 'PatientController@store');
+    $router->post('/cad-plan/{patientId}/{planId}', 'PlanPatientController@store');
     $router->get('/{id}', 'PatientController@show');
     $router->get('/showby/{id}', 'PatientController@showById');
+    $router->get('/plan/{patientId}/', 'PlanPatientController@get_plan_patient');
     $router->put('/{id}', 'PatientController@update');
     $router->delete('/{id}', 'PatientController@destroy');
     $router->get('/detail/{id}', 'QueryPatientController@getQueryPatient');
@@ -62,7 +64,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->post('/query-patient', 'QueryPatientController@store');
 });
 
-$router->group(['prefix' => 'protocol'], function () use ($router) {
+$router->group(['middleware' => 'auth', 'prefix' => 'protocol'], function () use ($router) {
     $router->get('/protocols', 'ProtocolorController@getProtols');
     $router->get('/showProtocolAgender/{id}', 'ProtocolorController@showProtocolAgender');
     $router->post('/', 'ProtocolorController@store');
@@ -84,7 +86,7 @@ $router->group(['prefix' => 'prescription'], function () use ($router){
     $router->get('/get-pdf/{prescription_id}', 'PrescriptionController@get_prescription_pdf');
 });
 
-$router->group(['prefix' => 'plan'], function () use ($router){
+$router->group(['middleware' => 'auth', 'prefix' => 'plan'], function () use ($router){
     $router->get('/', 'PlanController@get_plans');
     $router->post('/store', 'PlanController@store');
     $router->put('/cancel/{id}', 'PlanController@canceled_plan');
