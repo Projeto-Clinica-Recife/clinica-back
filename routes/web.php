@@ -55,7 +55,6 @@ $router->group(['prefix' => 'patient'], function () use ($router) {
 
 $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->get('/doctors', 'DoctorController@getDoctors');
-    $router->post('/store', 'DoctorController@show');
     $router->get('/{id}', 'DoctorController@show');
     $router->put('/{id}', 'DoctorController@update');
     $router->delete('/{id}', 'DoctorController@destroy');
