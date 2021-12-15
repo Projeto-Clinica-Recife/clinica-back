@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\PatientPlan;
+use Illuminate\Support\Str;
 
 class DoctorController extends Controller
 {
     public function getDoctors(){
-        $doctores = User::where('type_user', 'doctor')->get();
+        $doctores = User::where('type_user', 'doctor')->with('user_information')->get();
         if($doctores->count() <= 0){
             return response()->json([
                 'message' => 'Ops. Nenhum médico cadastrado na Base de Dados.',
@@ -30,8 +31,9 @@ class DoctorController extends Controller
 
     public  function show($id){
         $query = User::find($id);
+        $search = $replaced = Str::replace('%20', ' ', $id);
         if(!$query){
-        $queryTwo = User::where('nome','like','%'.$id.'%')
+        $queryTwo = User::where('name','like','%'.$search.'%')
         ->orWhere('cpf','=', $id)
         ->where('type_user','=','doctor')
         ->get();

@@ -58,7 +58,6 @@ $router->group(['prefix' => 'patient'], function () use ($router) {
 
 $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->get('/doctors', 'DoctorController@getDoctors');
-    $router->post('/store', 'DoctorController@show');
     $router->get('/{id}', 'DoctorController@show');
     $router->get('/plans/{doctorId}/', 'DoctorController@get_linked_plans');
     $router->put('/{id}', 'DoctorController@update');
