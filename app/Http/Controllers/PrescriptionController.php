@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Agender;
 use App\Models\Prescription;
+use App\Models\Patient;
 use App\Helpers\Helper;
 use \Illuminate\Support\Str;
 use PDF;
@@ -13,14 +14,16 @@ use PDF;
 class PrescriptionController extends Controller
 {
     public function generate(Request $request){
+        $patient = Patient::find($request->patient_id);
         $agender_id = $request->agender_id;
-        $patient_name = $request->patient_name;
-        $patient_cpf = Helper::mask($request->patient_cpf, '###.###.###-##');
+        $patient_name = $patient->nome;
+        $patient_cpf = Helper::mask($patient->cpf, '###.###.###-##');
         $doctor_name = $request->doctor_name;
         $crm = $request->doctor_crm;
         $crm_state = $request->crm_state;
         $prescription = $request->prescription;
-        $date = $request->date_current;
+
+        $date = date('d/m/Y');
 
         $prescription_id = Str::uuid();
 

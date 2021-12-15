@@ -39,12 +39,12 @@ class PlanPatientController extends Controller
         ], 202);
     }
 
-    public function get_plan_patient($patientId){
+    public function get_plans_patient($patientId){
         $patient_plan = DB::table('patients')
         ->join('patients_plans', 'patients.id', '=', 'patients_plans.patient_id')
         ->join('plans', 'plans.id', 'patients_plans.plan_id')
         ->select('patients.nome as patient_name')
-        ->addSelect('patients_plans.form_of_payment', 'patients_plans.discount', 'patients_plans.dueDate as Vencimento')
+        ->addSelect('patients_plans.id as patient_plan_id', 'patients_plans.form_of_payment', 'patients_plans.discount', 'patients_plans.dueDate as Vencimento')
         ->addSelect('plans.description', 'plans.period', 'plans.value')
         ->where('patients.id', '=', $patientId)
         ->get();

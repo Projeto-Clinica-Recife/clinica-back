@@ -49,7 +49,7 @@ $router->group(['prefix' => 'patient'], function () use ($router) {
     $router->post('/cad-plan/{patientId}', 'PlanPatientController@store');
     $router->get('/{id}', 'PatientController@show');
     $router->get('/showby/{id}', 'PatientController@showById');
-    $router->get('/plan/{patientId}/', 'PlanPatientController@get_plan_patient');
+    $router->get('/plans/{patientId}/', 'PlanPatientController@get_plans_patient');
     $router->put('/{id}', 'PatientController@update');
     $router->delete('/{id}', 'PatientController@destroy');
     $router->get('/detail/{id}', 'QueryPatientController@getQueriesPatient');
@@ -67,7 +67,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->post('/query-patient', 'QueryPatientController@store');
 });
 
-$router->group(['middleware' => 'auth', 'prefix' => 'protocol'], function () use ($router) {
+$router->group(['prefix' => 'protocol'], function () use ($router) {
     $router->get('/protocols', 'ProtocolorController@getProtols');
     $router->get('/showProtocolAgender/{id}', 'ProtocolorController@showProtocolAgender');
     $router->post('/', 'ProtocolorController@store');
@@ -81,7 +81,7 @@ $router->group(['prefix' => 'agender'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'contract'], function () use ($router) {
-        $router->post('/{patient_id}/{patient_plan_id}', 'ContractController@generate');
+        $router->post('/{patient_id}', 'ContractController@generate');
         $router->get('/{contract_id}', 'ContractController@get_contractor_pdf');
 });
 
@@ -90,7 +90,7 @@ $router->group(['prefix' => 'prescription'], function () use ($router){
     $router->get('/get-pdf/{prescription_id}', 'PrescriptionController@get_prescription_pdf');
 });
 
-$router->group(['middleware' => 'auth', 'prefix' => 'plan'], function () use ($router){
+$router->group(['prefix' => 'plan'], function () use ($router){
     $router->get('/', 'PlanController@get_plans');
     $router->post('/store', 'PlanController@store');
     $router->put('/cancel/{id}', 'PlanController@canceled_plan');

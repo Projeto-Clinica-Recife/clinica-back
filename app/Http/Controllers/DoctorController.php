@@ -55,6 +55,7 @@ class DoctorController extends Controller
         $plans = PatientPlan::
         where('doctor_id', $doctorId)
         ->with('plan')
+        ->with('patient')
         ->get();
 
         collect($plans)->map(function($plan){

@@ -17,12 +17,19 @@ use Closure;
 
 class ContractController extends Controller
 {
-    public function generate($patient_id, $patient_plan_id, Request $request){
+    public function generate($patient_id, Request $request){
         $patient = Patient::where('id', $patient_id)->first();
         $patient_cpf_formatted = Helper::mask($patient->cpf, '###.###.###-##');
         $patient->cep = Helper::mask($patient->cep, '#####-###');
 
-        $patientPlanId = PatientPlan::where('id', $patient_plan_id)->with('plan')->first();
+        $patientPlanId = PatientPlan::where('id', $request->patient_plan_id)->with('plan')->first();
+
+        if (!$patientPlanId) {
+            return response()->json(
+                'Ops. Plano não encontrado!', 404
+            );
+        }
+        
         $plan = $patientPlanId->plan;
 
         $contract_id = Str::uuid();
@@ -36,7 +43,7 @@ class ContractController extends Controller
 
         $contract = Contract::create([
             'id' => $contract_id,
-            'patient_id' => $patient_id,
+            'patient_plan_id' => $request->patient_plan_id,
             'file_name' => $file_name,
         ]);
 
@@ -44,7 +51,9 @@ class ContractController extends Controller
             return response()->json('Houve algum erro ao gerar o contrato');
         }
 
-        return $base64;
+        return response()->json(
+            $base64,
+        );
     }
 
     public function get_contractor_pdf($contract_id){

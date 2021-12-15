@@ -13,15 +13,27 @@ class PlansSeeder extends Seeder
 {
     public function run(){
         DB::table('plans')->insert([
-            'description' => 'Semestral',
-            'period' => 1,
-            'value' => 1500,
+            'description' => 'CONSULTA AVULSA',
+            'period' => 0,
+            'value' => 600,
             'status' => 'active',
         ]);
         DB::table('plans')->insert([
-            'description' => 'Trimestral',
+            'description' => 'PLANO TRIMESTRAL',
             'period' => 3,
-            'value' => 2750,
+            'value' => 1800,
+            'status' => 'active',
+        ]);
+        DB::table('plans')->insert([
+            'description' => 'PLANO SEMESTRAL',
+            'period' => 6,
+            'value' => 3600,
+            'status' => 'active',
+        ]);
+        DB::table('plans')->insert([
+            'description' => 'PLANO ANUAL',
+            'period' => 3,
+            'value' => 6600,
             'status' => 'active',
         ]);
     }
