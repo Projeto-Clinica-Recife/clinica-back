@@ -47,7 +47,7 @@
         <p>CPF/MF: {{$patient_cpf_formatted}}</p>
         <p>Endereço: Rua {{$patient->rua}}, nº {{$patient->numero}}</p> <p>Complemento: {{$patient->complemento}}, Bairro: {{$patient->bairro}}, Cidade: {{$patient->cidade}},</p>
         <p>Estado: {{$patient->estado}}, CEP: {{$patient->cep}}, E-mail: {{$patient->email}}</p>
-        <p>Plano Contratado: {{$patient->contracted_plan}}</p>
+        <p>Plano Contratado: {{ $plan->description }}</p>
     </div>
     <div style="text-align: justify">
         <p>

@@ -11,6 +11,7 @@ class PatientPlan extends Model
 
     protected $fillable = [
         'patient_id',
+        'doctor_id',
         'plan_id',
         'form_of_payment',
         'discount',
@@ -19,5 +20,13 @@ class PatientPlan extends Model
 
     public function patient(){
         return $this->belongsTo(Patient::class);
+    }
+
+    public function doctor(){
+        return $this->belongsTo(Patient::class);
+    }
+
+    public function plan(){
+        return $this->belongsTo(Plan::class);
     }
 }

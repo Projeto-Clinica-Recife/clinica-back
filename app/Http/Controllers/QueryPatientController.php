@@ -61,9 +61,9 @@ class QueryPatientController extends Controller
      ], 200);
    }
 
-   public function getQueryPatient($id) {
+   public function getQueriesPatient($id) {
 
-        $query_patient = DB::table('patients')
+        $queries_patient = DB::table('patients')
         ->join('query_patients', 'patients.id', '=', 'query_patients.patient_id')
         // ->join('patients_plans', 'patients.id', '=', 'patients_plans.patient_id')
         ->join('agender_protocols', 'query_patients.agender_protocol_id', '=', 'agender_protocols.id')
@@ -72,10 +72,26 @@ class QueryPatientController extends Controller
         ->join('user_information', 'users.id', '=', 'user_information.user_id')
         ->select('agenders.date', 'agenders.hour',
         'users.name as doctor_name', 'user_information.crm as doctor_crm', 'user_information.crm_state as doctor_crm_state',
-        'query_patients.plaint', 'query_patients.observation', 'query_patients.protocols')
+        'query_patients.id as query_id','query_patients.plaint', 'query_patients.observation', 'query_patients.protocols')
         ->where('patients.id', $id)
         ->get();
 
-        return $query_patient;
+        return $queries_patient;
    }
+
+   public function getQueryPatientById($queryId){
+        $query = DB::table('query_patients')
+        ->join('agender_protocols', 'query_patients.agender_protocol_id', '=', 'agender_protocols.id')
+        ->join('agenders', 'agender_protocols.agender_id', '=', 'agenders.id')
+        ->where('query_patients.id', $queryId)
+        ->select('query_patients.*')
+        ->addSelect('agender_protocols.*')
+        ->addSelect('agenders.*')
+        ->get();
+        $agenda = null;
+        foreach($query as $q){
+            $agenda = $q->plaint;
+        }
+        return $query;
+    }
 }

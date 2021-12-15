@@ -47,4 +47,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany(QueryPatient::class);
     }
 
+    public function doctor(){
+        return $this->hasMany(PatientPlan::class, 'doctor_id');
+    }
+
 }

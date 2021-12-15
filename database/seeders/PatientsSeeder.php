@@ -31,5 +31,26 @@ class PatientsSeeder extends Seeder
             'marital_status' => 'Solteiro',
             'signature' => 'rqewefewdwfewwe',
         ]);
+
+        DB::table('patients')->insert([
+            'nome' => 'Anderson',
+            'email' => 'and@gmail.com',
+            'rg' => '895465452',
+            'cpf' => '54625321441',
+            'dispatcher' => 'SSP',
+            'data_nascimento' => '2001-05-05',
+            'cep' => '48904755',
+            'rua' => 'Flor de Juá',
+            'numero' => '180',
+            'bairro' =>  'São Geraldo',
+            'cidade' => 'Juazeiro',
+            'estado' => 'BA',
+            'complemento' => 'Casa',
+            'ponto_referencia' => 'No',
+            'nationality' => 'Brasileiro',
+            'profession' => 'Pedreiro',
+            'marital_status' => 'Solteiro',
+            'signature' => 'rqewefewdwfrftwe',
+        ]);
     }
 }

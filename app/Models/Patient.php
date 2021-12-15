@@ -31,6 +31,10 @@ class Patient extends Model
         return $this->hasOne(Contract::class);
     }
 
+    public function agender(){
+        return $this->hasMany(Agender::class);
+    }
+
     public function query_patient(){
         return $this->hasMany(QueryPatient::class);
     }

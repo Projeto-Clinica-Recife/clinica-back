@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Patient;
 use App\Models\Contract;
+use App\Models\Plan;
+use App\Models\PatientPlan;
 use App\Helpers\Helper;
 use \Illuminate\Support\Str;
 use PDF;
@@ -15,15 +17,18 @@ use Closure;
 
 class ContractController extends Controller
 {
-    public function generate($patient_id, Request $request){
+    public function generate($patient_id, $patient_plan_id, Request $request){
         $patient = Patient::where('id', $patient_id)->first();
         $patient_cpf_formatted = Helper::mask($patient->cpf, '###.###.###-##');
         $patient->cep = Helper::mask($patient->cep, '#####-###');
 
+        $patientPlanId = PatientPlan::where('id', $patient_plan_id)->with('plan')->first();
+        $plan = $patientPlanId->plan;
+
         $contract_id = Str::uuid();
 
         $pdf = PDF::setPaper('a4');
-        $pdf = $pdf->loadView('contract.contract-layout', compact('patient', 'patient_cpf_formatted'));
+        $pdf = $pdf->loadView('contract.contract-layout', compact('patient', 'patient_cpf_formatted', 'plan'));
         $file_name = $contract_id . '_' . $patient->nome . '_' . $patient->cpf . '.pdf';
         file_put_contents('contracts_pdf/' . $file_name, $pdf->output());
         $file = file_get_contents(base_path('public/contracts_pdf/') . $file_name);

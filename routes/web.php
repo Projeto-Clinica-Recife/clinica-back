@@ -46,19 +46,21 @@ $router->group(['prefix' => 'user'], function () use ($router) {
 
 $router->group(['prefix' => 'patient'], function () use ($router) {
     $router->post('/store', 'PatientController@store');
-    $router->post('/cad-plan/{patientId}/{planId}', 'PlanPatientController@store');
+    $router->post('/cad-plan/{patientId}', 'PlanPatientController@store');
     $router->get('/{id}', 'PatientController@show');
     $router->get('/showby/{id}', 'PatientController@showById');
     $router->get('/plan/{patientId}/', 'PlanPatientController@get_plan_patient');
     $router->put('/{id}', 'PatientController@update');
     $router->delete('/{id}', 'PatientController@destroy');
-    $router->get('/detail/{id}', 'QueryPatientController@getQueryPatient');
+    $router->get('/detail/{id}', 'QueryPatientController@getQueriesPatient');
+    $router->get('/query/{queryId}', 'QueryPatientController@getQueryPatientById');
 });
 
 $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->get('/doctors', 'DoctorController@getDoctors');
     $router->post('/store', 'DoctorController@show');
     $router->get('/{id}', 'DoctorController@show');
+    $router->get('/plans/{doctorId}/', 'DoctorController@get_linked_plans');
     $router->put('/{id}', 'DoctorController@update');
     $router->delete('/{id}', 'DoctorController@destroy');
     $router->get('/agender/{id}/{date}', 'CalendarController@getAgenderDoctor');
@@ -73,12 +75,13 @@ $router->group(['middleware' => 'auth', 'prefix' => 'protocol'], function () use
 
 $router->group(['prefix' => 'agender'], function () use ($router) {
     $router->get('/{id}/{date}', 'CalendarController@getAgender');
+    $router->get('/getAgender', 'CalendarController@getAgenderByWeek');
     $router->post('/store', 'CalendarController@store');
     $router->put('/cancel-agender/{id}', 'CalendarController@cancelAgenderProtocol');
 });
 
 $router->group(['prefix' => 'contract'], function () use ($router) {
-        $router->post('/{patient_id}', 'ContractController@generate');
+        $router->post('/{patient_id}/{patient_plan_id}', 'ContractController@generate');
         $router->get('/{contract_id}', 'ContractController@get_contractor_pdf');
 });
 

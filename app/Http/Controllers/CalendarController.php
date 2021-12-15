@@ -15,6 +15,32 @@ use Validator;
 class CalendarController extends Controller
 {
 
+    public function getAgenderByWeek(Request $request){
+        $date = strtotime($request->date);
+        $date = date('Y-m-d', $date);
+
+        $agender = Agender::with('doctor')->with('patient')->get();
+
+        //Pega o dia da semana em numeral
+        $day = date('w');
+        //Pega o primeiro dia da semana
+        $week_start = date('Y-m-d', strtotime($date.'-'.$day.'days'));
+        //Pega o último dia da semana
+        $week_end = date('Y-m-d', strtotime($date.'+'.(6-$day).'days'));
+
+        $agender_week = [];
+
+        foreach ($agender as $ag){
+            if($ag->date >= $week_start && $ag->date <= $week_end) {
+                array_push($agender_week, $ag);
+            }
+        }
+
+        return response()->json(
+            $agender_week,
+        );
+    }
+
     public function getAgender($id, $date)
     {
         $agender = DB::table('agender_protocols')

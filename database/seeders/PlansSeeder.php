@@ -12,6 +12,17 @@ use App\Models\AgenderProtocol;
 class PlansSeeder extends Seeder
 {
     public function run(){
-        
+        DB::table('plans')->insert([
+            'description' => 'Semestral',
+            'period' => 1,
+            'value' => 1500,
+            'status' => 'active',
+        ]);
+        DB::table('plans')->insert([
+            'description' => 'Trimestral',
+            'period' => 3,
+            'value' => 2750,
+            'status' => 'active',
+        ]);
     }
 }

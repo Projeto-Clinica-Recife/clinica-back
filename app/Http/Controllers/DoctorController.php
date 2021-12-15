@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\PatientPlan;
 
 class DoctorController extends Controller
 {
@@ -48,5 +49,18 @@ class DoctorController extends Controller
         return response()->json($query, 200);
      }
         
+    }
+
+    public function get_linked_plans($doctorId){
+        $plans = PatientPlan::
+        where('doctor_id', $doctorId)
+        ->with('plan')
+        ->get();
+
+        collect($plans)->map(function($plan){
+            
+        });
+
+        return $plans;
     }
 }

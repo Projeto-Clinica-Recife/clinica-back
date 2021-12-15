@@ -11,16 +11,17 @@ use Validator;
 
 class PlanPatientController extends Controller
 {
-    public function store($patientId, $planId, Request $request){
+    public function store($patientId, Request $request){
 
-        $plan = Plan::find($planId);
+        $plan = Plan::find($request->plan_id);
 
         $plan_days = $plan->period * 30;
-        $venciment = date("Y-m-d", strtotime($plan_days . ' days'));
+        $venciment = date("Y-m-d", strtotime('+'.$plan_days . ' days'));
 
         $patient_plan = PatientPlan::create([
             'patient_id' => $request->patientId,
-            'plan_id' => $request->planId,
+            'doctor_id' => $request->doctor_id,
+            'plan_id' => $request->plan_id,
             'form_of_payment' => $request->form_of_payment,
             'discount' => $request->discount,
             'dueDate' => $venciment,
