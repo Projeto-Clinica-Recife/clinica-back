@@ -75,7 +75,7 @@ $router->group(['prefix' => 'protocol'], function () use ($router) {
 
 $router->group(['prefix' => 'agender'], function () use ($router) {
     $router->get('/{id}/{date}', 'CalendarController@getAgender');
-    $router->get('/getAgender', 'CalendarController@getAgenderByWeek');
+    $router->get('/week', 'CalendarController@getAgenderByWeek');
     $router->post('/store', 'CalendarController@store');
     $router->put('/cancel-agender/{id}', 'CalendarController@cancelAgenderProtocol');
 });
