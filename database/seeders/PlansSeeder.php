@@ -32,7 +32,7 @@ class PlansSeeder extends Seeder
         ]);
         DB::table('plans')->insert([
             'description' => 'PLANO ANUAL',
-            'period' => 3,
+            'period' => 11,
             'value' => 6600,
             'status' => 'active',
         ]);

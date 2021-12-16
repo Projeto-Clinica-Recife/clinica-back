@@ -60,9 +60,9 @@ class DoctorController extends Controller
         ->with('patient')
         ->get();
 
-        collect($plans)->map(function($plan){
-            
-        });
+        foreach($plans as $plan){
+            $plan->plan->value = number_format($plan->plan->value, 2, ',', '.');
+        }
 
         return $plans;
     }

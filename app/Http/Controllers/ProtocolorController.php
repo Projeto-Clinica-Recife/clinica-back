@@ -35,5 +35,20 @@ class ProtocolorController extends Controller
         ],200);
     }
 
+    public function delete($id, Request $request){
+        $protocol = Protocol::find($id);
+
+        $deletar = $protocol->delete();
+
+        if (!$deletar) {
+            return response()->json([
+                'error' => 'Hou algum ao excluir o protocolo!',
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => 'Protocolo excluir com sucesso!',
+        ], 200);
+    }
 
 }

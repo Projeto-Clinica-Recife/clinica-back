@@ -44,6 +44,7 @@ class ContractController extends Controller
         $contract = Contract::create([
             'id' => $contract_id,
             'patient_plan_id' => $request->patient_plan_id,
+            'base64' => $base64,
             'file_name' => $file_name,
         ]);
 

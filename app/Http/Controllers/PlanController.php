@@ -53,6 +53,25 @@ class PlanController extends Controller
         return response()->json($plans);
     }
 
+    public function  get_plans_actives(){
+        $plans = DB::table('plans')
+        ->where('status', 'active')
+        ->orderBy('status', 'asc')
+        ->get();
+        foreach($plans as $plan){
+            $plan->value = number_format($plan->value, 2, ',', '.');
+            switch($plan->status){
+                case 'active':
+                    $plan->status = 'Ativo';
+                    break;
+                case 'inactive': 
+                    $plan->status = 'Cancelado';
+                    break;
+            };
+        }
+        return response()->json($plans);
+    }
+
     public function canceled_plan($id){
         $plan = Plan::where('id', $id)->first();
 

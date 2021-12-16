@@ -11,9 +11,9 @@ class QueryPatientFactory extends Factory
 
     public function definition(){
         return [
-            'protocols' => $this->faker->text,
-            'plaint' => $this->faker->text,
-            'observation' => $this->faker->text,
+            'protocols' => $this->faker->text(100),
+            'plaint' => $this->faker->text(100),
+            'observation' => $this->faker->text(50),
         ];
     }
 }

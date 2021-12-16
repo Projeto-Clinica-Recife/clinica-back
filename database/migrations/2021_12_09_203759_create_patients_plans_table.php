@@ -20,7 +20,9 @@ class CreatePatientsPlansTable extends Migration
             $table->unsignedBigInteger('plan_id');
             $table->string('form_of_payment');
             $table->integer('discount')->nullable();
+            $table->integer('total_value')->nullable();
             $table->date('dueDate');
+            $table->enum('payment_status',['paid' ,'pending']);
             $table->foreign('patient_id')->references('id')->on('patients');
             $table->foreign('doctor_id')->references('id')->on('users');
             $table->foreign('plan_id')->references('id')->on('plans');

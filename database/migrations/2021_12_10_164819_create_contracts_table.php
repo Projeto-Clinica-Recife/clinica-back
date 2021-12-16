@@ -15,10 +15,9 @@ class CreateContractsTable extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            // $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('patient_plan_id');
+            $table->longText('base64')->nullable();
             $table->string('file_name')->nullable();
-            // $table->foreign('patient_id')->references('id')->on('patients');
             $table->foreign('patient_plan_id')->references('id')->on('patients_plans');
             $table->timestamps();
         });

@@ -20,7 +20,7 @@ class UsersSeeder extends Seeder
     {
         //
         User::factory()->count(1)->create([
-            'name' => 'Gil',
+            'name' => 'Gabriel',
             'email' => 'admin@gmail.com',
             'cpf' => '987654321',
             'first_access' => false,

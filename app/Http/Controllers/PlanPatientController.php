@@ -18,6 +18,15 @@ class PlanPatientController extends Controller
         $plan_days = $plan->period * 30;
         $venciment = date("Y-m-d", strtotime('+'.$plan_days . ' days'));
 
+        $value_total = $plan->value;
+        // Verifica se tem desconto e aplica sobre o valor do plano
+        if ($request->discount > 0) {
+            $value_total = ($plan->value * $request->discount) / 100;
+            $value_total = $plan->value - $value_total;
+        }
+
+        return $value_total;
+
         $patient_plan = PatientPlan::create([
             'patient_id' => $request->patientId,
             'doctor_id' => $request->doctor_id,
@@ -25,6 +34,7 @@ class PlanPatientController extends Controller
             'form_of_payment' => $request->form_of_payment,
             'discount' => $request->discount,
             'dueDate' => $venciment,
+            'total_value' => $value_total,
         ]);
         
         if (!$patient_plan) {
@@ -43,11 +53,17 @@ class PlanPatientController extends Controller
         $patient_plan = DB::table('patients')
         ->join('patients_plans', 'patients.id', '=', 'patients_plans.patient_id')
         ->join('plans', 'plans.id', 'patients_plans.plan_id')
+        ->join('contracts', 'patients_plans.id', '=', 'contracts.patient_plan_id')
         ->select('patients.nome as patient_name')
-        ->addSelect('patients_plans.id as patient_plan_id', 'patients_plans.form_of_payment', 'patients_plans.discount', 'patients_plans.dueDate as Vencimento')
-        ->addSelect('plans.description', 'plans.period', 'plans.value')
+        ->addSelect('patients_plans.id as patient_plan_id', 'patients_plans.form_of_payment', 'patients_plans.discount', 'patients_plans.dueDate as vencimento')
+        ->addSelect('plans.description', 'plans.period', 'plans.value', 'plans.id as plan_id')
+        ->addSelect('contracts.id as contract_id')
         ->where('patients.id', '=', $patientId)
         ->get();
+
+        foreach ($patient_plan as $patient) {
+            $patient->value = number_format($patient->value, 2, ',', '.');
+        }
 
         return $patient_plan;
     }

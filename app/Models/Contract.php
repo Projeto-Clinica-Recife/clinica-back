@@ -10,6 +10,7 @@ class Contract extends Model
     protected $fillable = [
         'id',
         'patient_plan_id',
+        'base64',
         'file_name',
     ];
 

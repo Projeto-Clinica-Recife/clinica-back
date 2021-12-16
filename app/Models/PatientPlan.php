@@ -15,7 +15,8 @@ class PatientPlan extends Model
         'plan_id',
         'form_of_payment',
         'discount',
-        'dueDate'
+        'dueDate',
+        'total_value',
     ];
 
     public function patient(){
