@@ -19,10 +19,13 @@ class CalendarController extends Controller
         $date = strtotime($request->date);
         $date = date('Y-m-d', $date);
 
-        $agender = Agender::with('doctor')->with('patient')->get();
+        $agender = Agender::with('doctor')
+        ->orderBy('date')
+        ->with('patient')
+        ->get();
 
         //Pega o dia da semana em numeral
-        $day = date('w');
+        $day = date('w', strtotime($date));
         //Pega o primeiro dia da semana
         $week_start = date('Y-m-d', strtotime($date.'-'.$day.'days'));
         //Pega o último dia da semana

@@ -70,6 +70,7 @@ $router->group(['prefix' => 'protocol'], function () use ($router) {
     $router->get('/protocols', 'ProtocolorController@getProtols');
     $router->get('/showProtocolAgender/{id}', 'ProtocolorController@showProtocolAgender');
     $router->post('/', 'ProtocolorController@store');
+    $router->put('/delete/{id}', 'ProtocolorController@delete');
 });
 
 $router->group(['prefix' => 'agender'], function () use ($router) {
@@ -91,6 +92,7 @@ $router->group(['prefix' => 'prescription'], function () use ($router){
 
 $router->group(['prefix' => 'plan'], function () use ($router){
     $router->get('/', 'PlanController@get_plans');
+    $router->get('/active', 'PlanController@get_plans_actives');
     $router->post('/store', 'PlanController@store');
     $router->put('/cancel/{id}', 'PlanController@canceled_plan');
     $router->put('/reactivate/{id}', 'PlanController@reactivatePlan');
