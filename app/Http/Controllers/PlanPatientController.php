@@ -25,8 +25,6 @@ class PlanPatientController extends Controller
             $value_total = $plan->value - $value_total;
         }
 
-        return $value_total;
-
         $patient_plan = PatientPlan::create([
             'patient_id' => $request->patientId,
             'doctor_id' => $request->doctor_id,
