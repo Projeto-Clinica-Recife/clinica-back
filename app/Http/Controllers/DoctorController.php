@@ -53,6 +53,13 @@ class DoctorController extends Controller
         
     }
 
+    public  function showById($id){
+        // $query = User::find($id)->with('user_information')->first();
+        $query = User::with('user_information')->where('id',$id)->first();
+        return response()->json($query, 200);
+
+    }
+
     public function get_linked_plans($doctorId){
         $plans = PatientPlan::
         where('doctor_id', $doctorId)
