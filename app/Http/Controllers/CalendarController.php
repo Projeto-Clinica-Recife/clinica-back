@@ -130,12 +130,12 @@ class CalendarController extends Controller
         ]);
 
 
-        foreach ($request->protocols_id as  $protocol) {
+        // foreach ($request->protocols_id as  $protocol) {
             $agender_protocol = AgenderProtocol::create([
                 'agender_id' => $agender->id,
-                'protocol_id' => $protocol,
+                'protocol_id' => $request->protocols_id,
             ]);
-        };
+        // };
 
         return response()->json([
             'agender' => $agender,
