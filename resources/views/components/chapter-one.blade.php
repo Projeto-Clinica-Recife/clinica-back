@@ -20,14 +20,29 @@
         <p>
             <strong>PLANO ANUAL</strong>: 11 (onze) consultas no valor total R$3.999,99 (três mil novecentos e noventa e nove reais e noventa e nove centavos);
         </p>
+
+        <p><strong>NÃO-PROMOCIONAIS:</strong></p>
         <p>
-            <strong>DEFINIÇÃO</strong> – Conforme Resolução CFM nº 1.958/2010 (Publicada no D.O.U. de 10 de janeiro de 2011, Seção I, p. 92):CONSULTA MÉDICA: compreende a anamnese, o exame físico e a elaboração de hipóteses ou conclusões diagnosticas, solicitação de exames complementares, quando necessários, e prescrição terapêutica como ato médico completo e que pode ser concluído ou não em um único momento, de modo que toda consulta caracteriza novo ato profissional e será computada para fins de subtração do todo, conforme o plano contratado.
+            <strong>CONSULTA AVULSA</strong>: R$ 600,00 (seiscentos reais);
+        </p>
+        <p>
+            <strong>PLANO TRIMESTRAL</strong>: R$ 1.800,00 (um mil e oitocentos reais) - 3 (três) consultas;
+        </p>
+        <p>
+            <strong>PLANO SEMESTRAL</strong> R$ 3.600,00 (três mil e seiscentos reais) - 6 (seis) consultas;
+        </p>
+        <p>
+            <strong>PLANO ANUAL</strong>: R$ 6.600,00 (seis mil e seiscentos reais) - 11 (onze) consultas.
+        </p>
+
+        <p>
+            <strong>DEFINIÇÃO</strong> – Conforme Resolução CFM nº 1.958/2010 (Publicada no D.O.U. de 10 de janeiro de 2011, Seção I, p. 92): <strong>CONSULTA MÉDICA</strong> compreende a anamnese, o exame físico e a elaboração de hipóteses ou conclusões diagnosticas, solicitação de exames complementares, quando necessários, e prescrição terapêutica como ato médico completo e que pode ser concluído ou não em um único momento, de modo que toda consulta caracteriza novo ato profissional e será computada para fins de subtração do todo, conforme o plano contratado.
         </p>
         <p>
             <strong>Parágrafo primeiro</strong> – a execução do serviço far-se-á de acordo com o plano contratado(CONSULTA AVULSA, TRIMESTRAL, SEMESTRAL e ANUAL), sendo imperativa a observância de cada uma de suas especificidades.
         </p>
         <p>
-            <strong>Parágrafo segundo</strong> – As consultas médicas serão realizadas em horário eletivo e com prévio agendamento, conforme rotina definida pelo CONTRATADO, devendo a primeira consulta ser agendada no sítio eletrônico, www.rafaelcoelho.med.br após a confirmação do pagamento do plano contratado, e as demais serão definidas pelo CONTRATADO e pelo CONTRATANTE, observadas as necessidades médicas atinentes ao caso.
+            <strong>Parágrafo segundo</strong> – As consultas médicas serão realizadas em horário eletivo e com prévio agendamento, conforme rotina definida pelo CONTRATADO, <strong>devendo a primeira consulta ser agendada no sítio eletrônico</strong>, www.rafaelcoelho.med.br após a confirmação do pagamento do plano contratado, e as demais serão definidas pelo CONTRATADO e pelo CONTRATANTE, observadas as necessidades médicas atinentes ao caso.
         </p>
         <p>
             <strong>Parágrafo terceiro</strong> – Fica facultada, ainda, a possibilidade marcação por telefone ou e-mail, indicados no sítio eletrônico acima, caso o site esteja fora dor ar ou em manutenção, bem ainda por motivos alheios às partes.
