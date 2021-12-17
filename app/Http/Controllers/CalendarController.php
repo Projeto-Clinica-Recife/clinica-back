@@ -123,6 +123,7 @@ class CalendarController extends Controller
         $agender = Agender::create([
             'date' => $request->date,
             'hour' => $request->hour,
+            'hourEnd' => $request->hourEnd,
             // 'protocols_id' => $protocols,
             'doctor_id' => $request->doctor_id,
             'patient_id' => $request->patient_id,
@@ -157,4 +158,6 @@ class CalendarController extends Controller
             return response()->json($data, 200);
         }
     }
+
+
 }

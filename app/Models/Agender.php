@@ -13,6 +13,7 @@ class Agender extends Model
     protected $fillable = [
         'date',
         'hour',
+        'hourEnd',
         // 'protocols_id',
         'doctor_id',
         'patient_id',
