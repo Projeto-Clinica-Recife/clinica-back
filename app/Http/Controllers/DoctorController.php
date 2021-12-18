@@ -61,16 +61,23 @@ class DoctorController extends Controller
     }
 
     public function get_linked_plans($doctorId){
-        $plans = PatientPlan::
-        where('doctor_id', $doctorId)
-        ->with('plan')
-        ->with('patient')
+
+        $plans = DB::table('users')
+        ->join('patients_plans', 'users.id', '=', 'patients_plans.doctor_id')
+        ->join('plans', 'plans.id', 'patients_plans.plan_id')
+        ->join('patients', 'patients_plans.patient_id', '=', 'patients.id')
+        ->join('contracts', 'patients_plans.id', '=', 'contracts.patient_plan_id')
+        ->where('users.id', '=', $doctorId)
+        ->select('patients.nome as patient_name')
+        ->addSelect('patients_plans.id as patient_plan_id', 'patients_plans.form_of_payment', 'patients_plans.discount', 'patients_plans.dueDate as vencimento', 'patients_plans.payment_status', 'patients_plans.created_at as inicio')
+        ->addSelect('plans.description', 'plans.period', 'plans.value', 'plans.id as plan_id')
+        ->addSelect('contracts.id as contract_id')
         ->get();
 
         foreach($plans as $plan){
-            $plan->plan->value = number_format($plan->plan->value, 2, ',', '.');
+            $plan->value = number_format($plan->value, 2, ',', '.');
         }
 
-        return $plans;
+        return response()->json($plans);
     }
 }

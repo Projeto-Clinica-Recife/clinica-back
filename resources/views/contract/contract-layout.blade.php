@@ -51,7 +51,7 @@
     </div>
     <div style="text-align: justify">
         <p>
-            <strong>CONTRATADO</strong>: R C VILA SERVIÇOS MÉDICOS, empresário individual, com endereço para prestação de serviços na Av. República do Líbano, 251 – Pina, Recife – PE, 51110-190 e inscrito no CNPJ/MF sob nº 24.623.109/0001-43.
+            <strong>CONTRATADO</strong>: {{ $doctor->name}}, empresário individual, com endereço para prestação de serviços na Av. República do Líbano, 251 – Pina, Recife – PE, 51110-190 e inscrito no CNPJ/MF sob nº 24.623.109/0001-43.
         </p>
         <p>
             As partes acima identificadas – doravante identificadas como CONTRATANTE e o CONTRATADO – têm, entre si, justo e acertado o presente Contrato de prestação de serviços médicos, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente.

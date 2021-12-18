@@ -14,7 +14,7 @@ class Contract extends Model
         'file_name',
     ];
 
-    public function patient(){
-        return $this->belongsTo(Patient::class);
+    public function patient_plan(){
+        return $this->belongsTo(PatientPlan::class);
     }
 }
