@@ -18,7 +18,7 @@ class CreatePlansTable extends Migration
             $table->string('description');
             $table->integer('period');
             $table->decimal('value');
-            $table->enum('status',['active', 'inactive'])->decimal('active');
+            $table->enum('status',['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

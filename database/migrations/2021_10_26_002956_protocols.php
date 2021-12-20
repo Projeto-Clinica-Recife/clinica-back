@@ -16,6 +16,7 @@ class Protocols extends Migration
         Schema::create('protocols', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('descricao');
+            $table->decimal('value')->nullable();
             $table->timestamps();
         });
     }
