@@ -18,6 +18,12 @@ class PatientController extends Controller
         //
     }
 
+    public function all(){
+        $patients = Patient::all();
+
+        return response()->json($patients);
+    }
+
     public  function store(Request $request)
     {
         $query = Patient::create($request->all());
