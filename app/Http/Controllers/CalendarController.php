@@ -108,6 +108,8 @@ class CalendarController extends Controller
             ->where('date', $request->date)
             ->where('hour', $request->hour)
             ->where('agender_protocols.status', '<>', 'canceled')
+            ->where('agenders.doctor_id', $request->doctor_id)
+            ->where('agenders.patient_id', $request->patient_id)
             ->get();
         // $rules = Agender::where('date', $request->date)
         // ->where('hour', $request->hour)->get();
