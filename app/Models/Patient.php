@@ -11,6 +11,7 @@ class Patient extends Model
         'data_nascimento',
         'cpf',
         'rg',
+        'telephone',
         'dispatcher',
         'email',
         'cep',
