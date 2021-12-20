@@ -18,8 +18,6 @@ class AgenderProtocol extends Migration
             $table->enum('status',['waiting','finished', 'canceled'])->default('waiting');
             $table->foreignId('agender_id')->constrained();
             $table->foreignId('protocol_id')->constrained();
-            $table->decimal('value');
-            $table->enum('payment_status',['paid' ,'pending']);
             $table->timestamps();
         });
     }
