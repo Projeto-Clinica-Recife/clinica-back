@@ -8,6 +8,7 @@ class Protocol extends Model
 {
     protected $fillable = [
         'descricao',
+        'value',
     ];
 
     public function calendar(){
