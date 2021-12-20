@@ -119,7 +119,7 @@ class CalendarController extends Controller
         if (count($rules) > 0) {
             return response()->json([
                 'message' => 'Já existe um agendamento nesta data e horário',
-            ],400);
+            ], 422);
         }
 
         $agender = Agender::create([
