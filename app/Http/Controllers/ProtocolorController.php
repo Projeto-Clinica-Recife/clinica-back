@@ -21,6 +21,7 @@ class ProtocolorController extends Controller
     public function store(Request $request){
         $protocol = Protocol::create([
             'descricao' => $request->description,
+            'value' => $request->value,
         ]);
 
         if(!$protocol){
