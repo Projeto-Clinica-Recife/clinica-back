@@ -35,6 +35,7 @@ class PlanPatientController extends Controller
             'discount' => $request->discount,
             'dueDate' => $venciment,
             'total_value' => $value_total,
+            'observation' => $request->observation,
         ]);
         
         if (!$patient_plan) {
@@ -52,51 +53,54 @@ class PlanPatientController extends Controller
     public function search_plan_patient($item) {
         $search = $replaced = Str::replace('%20', ' ', $item);
 
-        $patient = Patient::where('cpf','like','%'.$search.'%')
-        ->first();
-        $plans = null;
-        if($patient){
-            $plans = PatientPlan::where('patient_id', $patient->id)->first();
-        }
+        // $patient = Patient::where('cpf','like','%'.$search.'%')
+        // ->first();
+        // $plans = null;
+        // if($patient){
+        //     $plans = PatientPlan::where('patient_id', $patient->id)->first();
+        // }
 
-        if($plans){
-            return response()->json($patient);
-        }
+        // if($plans){
+        //     return response()->json($patient);
+        // }
 
-        // $patient = DB::table('patients')
-        // ->join('patients_plans', 'patients.id', '=', 'patients_plans.patient_id')
-        // ->where('nome','like','%'.$search.'%')
-        // ->orWhere('cpf','like','%'.$search.'%')
-        // ->select('patients.*')
-        // ->get()->toArray();
+        $patient = DB::table('patients')
+        ->join('patients_plans', 'patients.id', '=', 'patients_plans.patient_id')
+        ->where('nome','like','%'.$search.'%')
+        ->orWhere('cpf','like','%'.$search.'%')
+        ->select('patients.*')
+        ->distinct()
+        ->get()->toArray();
 
-        return response()->json(0);
+        return response()->json($patient);
 
     }
 
     public function search_plan_doctor($item){
         $search = $replaced = Str::replace('%20', ' ', $item);
 
-        $doctor = User::where('cpf','like','%'.$search.'%')
-        ->where('type_user', '=', 'doctor')
-        ->first();
-        $plans = null;
-        if($doctor){
-            $plans = PatientPlan::where('doctor_id', $doctor->id)->first();
-        }
-
-        if($plans){
-            return response()->json($doctor);
-        }
-        // $doctor = DB::table('users')
-        // ->join('patients_plans', 'users.id', '=', 'patients_plans.doctor_id')
-        // ->where('name','like','%'.$search.'%')
-        // ->orWhere('cpf','like','%'.$search.'%')
+        // $doctor = User::where('cpf','like','%'.$search.'%')
         // ->where('type_user', '=', 'doctor')
-        // ->select('users.*')
-        // ->get();
+        // ->first();
+        // $plans = null;
+        // if($doctor){
+        //     $plans = PatientPlan::where('doctor_id', $doctor->id)->first();
+        // }
 
-        return response()->json(0);
+        // if($plans){
+        //     return response()->json($doctor);
+        // }
+
+        $doctor = DB::table('users')
+        ->join('patients_plans', 'users.id', '=', 'patients_plans.doctor_id')
+        ->where('name','like','%'.$search.'%')
+        ->orWhere('cpf','like','%'.$search.'%')
+        ->where('type_user', '=', 'doctor')
+        ->select('users.*')
+        ->distinct()
+        ->get()->toArray();
+
+        return response()->json($doctor);
     }
 
     public function get_plans_patient($patientId){
@@ -105,7 +109,7 @@ class PlanPatientController extends Controller
         ->join('plans', 'plans.id', 'patients_plans.plan_id')
         ->join('contracts', 'patients_plans.id', '=', 'contracts.patient_plan_id')
         ->select('patients.nome as patient_name')
-        ->addSelect('patients_plans.id as patient_plan_id', 'patients_plans.form_of_payment', 'patients_plans.discount', 'patients_plans.dueDate as vencimento')
+        ->addSelect('patients_plans.id as patient_plan_id', 'patients_plans.form_of_payment', 'patients_plans.discount', 'patients_plans.dueDate as vencimento', 'patients_plans.observation')
         ->addSelect('plans.description', 'plans.period', 'plans.value', 'plans.id as plan_id')
         ->addSelect('contracts.id as contract_id')
         ->where('patients.id', '=', $patientId)

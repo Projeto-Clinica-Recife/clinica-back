@@ -69,7 +69,8 @@ class DoctorController extends Controller
         ->join('contracts', 'patients_plans.id', '=', 'contracts.patient_plan_id')
         ->where('users.id', '=', $doctorId)
         ->select('patients.nome as patient_name')
-        ->addSelect('patients_plans.id as patient_plan_id', 'patients_plans.form_of_payment', 'patients_plans.discount', 'patients_plans.dueDate as vencimento', 'patients_plans.payment_status', 'patients_plans.created_at as inicio')
+        ->addSelect('patients_plans.id as patient_plan_id', 'patients_plans.form_of_payment', 'patients_plans.discount', 'patients_plans.dueDate as vencimento', 'patients_plans.payment_status', 'patients_plans.created_at as inicio',
+        'patients_plans.observation')
         ->addSelect('plans.description', 'plans.period', 'plans.value', 'plans.id as plan_id')
         ->addSelect('contracts.id as contract_id')
         ->get();

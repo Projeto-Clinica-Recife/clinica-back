@@ -15,6 +15,7 @@ class PatientPlan extends Model
         'plan_id',
         'form_of_payment',
         'discount',
+        'observation',
         'dueDate',
         'total_value',
     ];
