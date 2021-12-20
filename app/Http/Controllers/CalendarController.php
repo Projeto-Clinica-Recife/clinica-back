@@ -22,6 +22,7 @@ class CalendarController extends Controller
         $agender = Agender::with('doctor')
         ->orderBy('date')
         ->with('patient')
+        ->with('protocols')
         ->get();
 
         //Pega o dia da semana em numeral
