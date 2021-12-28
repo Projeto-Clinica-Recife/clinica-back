@@ -13,6 +13,7 @@ class UserInformation extends Model
         'telephone',
         'crm',
         'crm_state',
+        'logo_doctor_file_name',
         'user_id',
     ];
 

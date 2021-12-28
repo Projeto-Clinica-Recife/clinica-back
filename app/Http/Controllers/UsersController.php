@@ -74,6 +74,7 @@ class UsersController extends Controller
         $user_information = UserInformation::create([
             'telephone' => $request->telephone,
             'crm' => $request->crm,
+            'crm_state' => $request->crm_state,
             'user_id' => $user->id,
         ]);
 
@@ -145,13 +146,6 @@ class UsersController extends Controller
         ], 200);
     }
 
-    public function destroy($id){
-        $user = User::find($id);
-        return response()->json(
-            $user, 200
-        );
-    }
-
     public function first_access($id){
         $user = User::find($id);
         if($user->first_access){
@@ -163,4 +157,12 @@ class UsersController extends Controller
         }
         return true;
     }
+
+    public function destroy($id){
+        $user = User::find($id);
+        return response()->json(
+            $user, 200
+        );
+    }
+
 }

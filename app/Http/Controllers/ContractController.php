@@ -25,20 +25,25 @@ class ContractController extends Controller
         $patient->cep = Helper::mask($patient->cep, '#####-###');
 
         $patientPlan = PatientPlan::where('id', $request->patient_plan_id)->with('plan')->first();
-        $doctor = User::where('id', $patientPlan->doctor_id)->first();
 
         if (!$patientPlan) {
             return response()->json(
                 'Ops. Plano não encontrado!', 404
             );
         }
+
+        $doctor = User::where('id', $patientPlan->doctor_id)->first();
+
+        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+
+        $month = strftime('%B');
         
         $plan = $patientPlan->plan;
 
         $contract_id = Str::uuid();
 
         $pdf = PDF::setPaper('a4');
-        $pdf = $pdf->loadView('contract.contract-layout', compact('patient', 'patient_cpf_formatted', 'plan', 'doctor'));
+        $pdf = $pdf->loadView('contract.contract-layout', compact('patient', 'patient_cpf_formatted', 'plan', 'doctor', 'month'));
         $file_name = $contract_id . '_' . $patient->nome . '_' . $patient->cpf . '.pdf';
         file_put_contents('contracts_pdf/' . $file_name, $pdf->output());
         $file = file_get_contents(base_path('public/contracts_pdf/') . $file_name);

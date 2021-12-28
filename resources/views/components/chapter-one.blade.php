@@ -11,9 +11,9 @@
         </p>
         <p><strong>PROMOCIONAIS:</strong></p>
         <p><strong>CONSULTA AVULSA</strong>: R$ 600,00 (seiscentos reais);</p>
-        <p>
+        {{-- <p>
             <strong>PLANO TRIMESTRAL</strong>: 3 (três) consultas no valor total de R$1.199,99 (Um mil cento e noventa e nove reais e noventa e nove centavos);
-        </p>
+        </p> --}}
         <p>
             <strong>PLANO SEMESTRAL</strong>: 6 (seis) consultas no valor total R$2.099,99 (Dois mil e noventa e nove reais e noventa e nove centavos);
         </p>
@@ -25,9 +25,9 @@
         <p>
             <strong>CONSULTA AVULSA</strong>: R$ 600,00 (seiscentos reais);
         </p>
-        <p>
+        {{-- <p>
             <strong>PLANO TRIMESTRAL</strong>: R$ 1.800,00 (um mil e oitocentos reais) - 3 (três) consultas;
-        </p>
+        </p> --}}
         <p>
             <strong>PLANO SEMESTRAL</strong> R$ 3.600,00 (três mil e seiscentos reais) - 6 (seis) consultas;
         </p>

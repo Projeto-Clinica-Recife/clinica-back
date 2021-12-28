@@ -63,6 +63,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->get('/showby/{id}', 'DoctorController@showById');
     $router->get('/plans/{doctorId}/', 'DoctorController@get_linked_plans');
     $router->put('/{id}', 'DoctorController@update');
+    $router->post('/upload-image/{id}', 'DoctorController@upload_logo_doctor');
     $router->delete('/{id}', 'DoctorController@destroy');
     $router->get('/agender/{id}/{date}', 'CalendarController@getAgenderDoctor');
     $router->post('/query-patient', 'QueryPatientController@store');

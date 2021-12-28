@@ -81,4 +81,48 @@ class DoctorController extends Controller
 
         return response()->json($plans);
     }
+
+    public function upload_logo_doctor( $id, Request $request){
+        $doctor = User::where('id', $id)->with('user_information')->first();  
+
+        if($request->hasFile('logo_doctor')){
+            $file = $request->file('logo_doctor');
+            // Pega a extensão do arquivo
+            $extension = $file->getClientOriginalExtension();
+
+            $file_name =  $doctor->name . 
+            '_' . $doctor->user_information->crm . 
+            '_' . Str::uuid() . 
+            '.' . $extension;
+
+            // Salva o arquivo
+            $file->move(
+                base_path('public/uploads/logo_doctors/'), $file_name,
+            );
+
+            $doctor->user_information->logo_doctor_file_name = $file_name;
+            $doctor->user_information->save();
+
+            return response()->json([
+                'message' => 'Logo adicionada com sucesso!',
+                'user' => $doctor,
+            ], 200);
+
+        }else if(!$request->hasFile('logo_doctor')){
+            return response()->json([
+                'error' => 'Nenhum arquivo selecionado!',
+            ], 404);
+        }
+        else{
+            return response()->json([
+                'error' => 'Houve algum erro ao adicionar a logo!',
+            ], 404);
+        }
+
+    }
+
+    public function get_logo($id){
+
+    }
+
 }
