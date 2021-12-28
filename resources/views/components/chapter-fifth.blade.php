@@ -19,7 +19,7 @@
             
         </div>
         <p>
-            Recife, {{date('d')}}, de {{ $month }}, de {{date('Y')}}
+            Recife, {{date('d')}}, de {{ strftime('%B') }}, de {{date('Y')}}
         </p>
         <br>
         <div class="linha-horizontal"></div>

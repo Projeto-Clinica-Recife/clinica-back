@@ -35,15 +35,13 @@ class ContractController extends Controller
         $doctor = User::where('id', $patientPlan->doctor_id)->first();
 
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-
-        $month = strftime('%B');
         
         $plan = $patientPlan->plan;
 
         $contract_id = Str::uuid();
 
         $pdf = PDF::setPaper('a4');
-        $pdf = $pdf->loadView('contract.contract-layout', compact('patient', 'patient_cpf_formatted', 'plan', 'doctor', 'month'));
+        $pdf = $pdf->loadView('contract.contract-layout', compact('patient', 'patient_cpf_formatted', 'plan', 'doctor'));
         $file_name = $contract_id . '_' . $patient->nome . '_' . $patient->cpf . '.pdf';
         file_put_contents('contracts_pdf/' . $file_name, $pdf->output());
         $file = file_get_contents(base_path('public/contracts_pdf/') . $file_name);
