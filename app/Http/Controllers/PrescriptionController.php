@@ -15,17 +15,31 @@ class PrescriptionController extends Controller
 {
     public function generate(Request $request){
         $patient = Patient::find($request->patient_id);
+        $doctor = User::where('id', $request->doctor_id)->with('user_information')->first();
         $agender_id = $request->agender_id;
         $patient_name = $patient->nome;
         $patient_cpf = Helper::mask($patient->cpf, '###.###.###-##');
-        $doctor_name = $request->doctor_name;
-        $crm = $request->doctor_crm;
-        $crm_state = $request->crm_state;
+        $doctor_name = $doctor->name;
+        $crm = $doctor->user_information->crm;
+        $crm_state = $doctor->user_information->crm_state;
         $prescription = $request->prescription;
 
         $date = date('d/m/Y');
 
         $prescription_id = Str::uuid();
+
+        $logo_doctor = '';
+
+        if($doctor->user_information->logo_doctor_file_name){
+            $logo_name = $doctor->user_information->logo_doctor_file_name;
+    
+            $file = file_get_contents(base_path('public/uploads/logo_doctors/') . $logo_name);
+    
+            $extension = pathinfo($logo_name, PATHINFO_EXTENSION);
+    
+            $logo_doctor = 'data:image/'. $extension . ';base64,' . base64_encode($file);
+        }
+
 
         $pdf = PDF::setPaper('a4');
         $pdf = $pdf->loadView('prescription.prescription', compact(
@@ -36,7 +50,9 @@ class PrescriptionController extends Controller
             'patient_cpf',
             'prescription',
             'date',
+            'logo_doctor',
         ));
+
         $file_name = $prescription_id . '_' . $patient_name . '_' . $request->patient_cpf . '.pdf';
         file_put_contents('prescriptions_pdf/' . $file_name, $pdf->output());
         $file_path = base_path('public/prescriptions_pdf/' . $file_name);

@@ -30,7 +30,7 @@
             transform: translateX(36mm);
         }
         #quadro{
-            height: 800px;
+            height: 900px;
             margin-top: 20px;
             border: 2px solid #000;
             padding-left: 30px;
@@ -44,23 +44,38 @@
             transform: translateX(70mm);
         }
         .body{
-            min-height: 600px
+            min-height: 600px;
+            position: relative;
         }
         .body p{
             font-size: 12px;
         }
         body .prescription{
+            position: relative;
             font-size: 16px !important;
             line-height: 1.5;
+            text-align: justify;
+            margin-right: 15px;
+        }
+        .logo{
+            position: absolute !important;
+            top: -5% !important;
+            left: 80% !important;
+        }
+        .logo img{
+            position: absolute !important;
+            widows: 120px !important;
+            height: 120px !important;
+            opacity: 0.6;
         }
         .footer{
-            /* margin-top: 200px; */
-            margin-bottom: 50px;
+            margin-top: 100px;
+            margin-bottom: 5px;
             display: flex;
             justify-content:space-between;
         }
         .footer p{
-            margin-top:20px;
+            margin-top: 20px;
         }
         .date{
             transform: translate(127mm, -25px)
@@ -100,6 +115,9 @@
                 <p class="uppercase patient_cpf">
                     CPF: {{ $patient_cpf }}
                 </p>
+            </div>
+            <div class="logo">
+                <img src="{{ $logo_doctor }}" alt="Logo do Médico">
             </div>
             <div>
                 <p class="uppercase">
