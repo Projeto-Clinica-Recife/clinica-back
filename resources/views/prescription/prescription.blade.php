@@ -7,7 +7,7 @@
     <title>Receita Médica</title>
     <style type="text/css">
         body, html {
-            margin-top: 40px;
+            margin-top: 30px;
             font-family: Arial, Helvetica, sans-serif;
         };
         div{
@@ -21,16 +21,17 @@
             text-transform: uppercase;
         }
         header img{
-            transform: translateX(8cm);
-            margin: 0, 0, 30px, 0;
+            transform: translateX(16rem);
+            margin: 0, 0, 15px, 0;
+            height: 100px;
         }
         header h2{
             font-size: 14px;
             padding-top: 10px;
-            transform: translateX(36mm);
+            transform: translateX(44mm);
         }
         #quadro{
-            height: 900px;
+            height: 830px;
             margin-top: 20px;
             border: 2px solid #000;
             padding-left: 30px;
@@ -44,7 +45,7 @@
             transform: translateX(70mm);
         }
         .body{
-            min-height: 600px;
+            min-height: 500px;
             position: relative;
         }
         .body p{
@@ -58,15 +59,15 @@
             margin-right: 15px;
         }
         .logo{
-            position: absolute !important;
-            top: -5% !important;
-            left: 80% !important;
+            position: relative !important;
         }
         .logo img{
             position: absolute !important;
-            widows: 120px !important;
-            height: 120px !important;
-            opacity: 0.6;
+            width: 150px !important;
+            height: 150px !important;
+            opacity: 0.3;
+            top: -100px;
+            left: 35%;
         }
         .footer{
             margin-top: 100px;
@@ -95,7 +96,7 @@
 <body>
     <div class="header">
         <header>
-            {{-- <img src="storage/app/logomarca.png" alt=""> --}}
+            <img src="{{ $logo_coelho_base64 }}" alt="">
             <h2>Instituto Coelho – Emagrecimento e Performance Humana</h2>
         </header>
     </div>
@@ -116,9 +117,6 @@
                     CPF: {{ $patient_cpf }}
                 </p>
             </div>
-            <div class="logo">
-                <img src="{{ $logo_doctor }}" alt="Logo do Médico">
-            </div>
             <div>
                 <p class="uppercase">
                     Prescrição:
@@ -127,6 +125,9 @@
                     {{ $prescription }}
                 </p>
             </div>
+        </div>
+        <div class="logo">
+            <img src="{{ $logo_doctor }}" alt="Logo do Médico">
         </div>
         <div class="footer">
             <div class="linha-horizontal">

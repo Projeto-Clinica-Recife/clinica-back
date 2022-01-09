@@ -38,6 +38,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 $router->group(['prefix' => 'user'], function () use ($router) {
     $router->get('/', 'UsersController@get_users');
     $router->get('/{id}', 'UsersController@get_user_by_id');
+    $router->get('/copy/{id}', 'UsersController@get_data_to_copy');
     $router->put('/update/{id}', 'UsersController@update');
     $router->put('/password/{id}', 'UsersController@redefine_password');
     $router->put('/first_access/{id}', 'UsersController@first_access');

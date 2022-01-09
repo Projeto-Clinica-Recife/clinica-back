@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Helpers\Helper;
 use App\Models\User;
 use App\Models\UserInformation;
 use GuzzleHttp\Client;
@@ -156,6 +158,29 @@ class UsersController extends Controller
             }
         }
         return true;
+    }
+
+    public function get_data_to_copy($id){
+        // $user = DB::table('users')
+        // ->join('user_information', 'users.id', '=', 'user_information.user_id')
+        // ->where('users.id',$id)
+        // ->select('name', 'email', 'cpf', 'user_information.telephone')
+        // ->get();
+
+        $user = User::where('id',$id)->with('user_information')->first();
+        $formattedCpf = Helper::mask($user->cpf, '###.###.###-##');
+        $formattedPhone = Helper::mask_phone($user->user_information->telephone);
+
+        $filter_info = [];
+        $filter_info[0] = $user->name;
+        $filter_info[1] = $user->email;
+        $filter_info[2] = $formattedCpf;
+        $filter_info[3] = $formattedPhone;
+        if($user->type_user == 'doctor'){
+            $filter_info[4] = $user->user_information->crm . '/' . $user->user_information->crm_state;
+        }
+
+        return response()->json($filter_info, 200);
     }
 
     public function destroy($id){

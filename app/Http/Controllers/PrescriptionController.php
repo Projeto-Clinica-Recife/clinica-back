@@ -28,8 +28,10 @@ class PrescriptionController extends Controller
 
         $prescription_id = Str::uuid();
 
-        $logo_doctor = '';
+        $logo_coelho = file_get_contents(base_path('public/img/') . 'logomarca.png');
+        $logo_coelho_base64 = 'data:image/png;base64,' . base64_encode($logo_coelho);
 
+        $logo_doctor = '';
         if($doctor->user_information->logo_doctor_file_name){
             $logo_name = $doctor->user_information->logo_doctor_file_name;
     
@@ -39,7 +41,6 @@ class PrescriptionController extends Controller
     
             $logo_doctor = 'data:image/'. $extension . ';base64,' . base64_encode($file);
         }
-
 
         $pdf = PDF::setPaper('a4');
         $pdf = $pdf->loadView('prescription.prescription', compact(
@@ -51,7 +52,10 @@ class PrescriptionController extends Controller
             'prescription',
             'date',
             'logo_doctor',
+            'logo_coelho_base64',
         ));
+
+        // return $pdf->stream();
 
         $file_name = $prescription_id . '_' . $patient_name . '_' . $request->patient_cpf . '.pdf';
         file_put_contents('prescriptions_pdf/' . $file_name, $pdf->output());
