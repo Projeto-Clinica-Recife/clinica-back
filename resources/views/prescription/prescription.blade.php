@@ -65,7 +65,7 @@
             position: absolute !important;
             width: 150px !important;
             height: 150px !important;
-            opacity: 0.3;
+            opacity: 0.8;
             top: -100px;
             left: 35%;
         }
