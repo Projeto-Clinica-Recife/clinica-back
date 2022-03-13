@@ -18,5 +18,38 @@ class ProtocolorController extends Controller
         200);
     }
 
+    public function store(Request $request){
+        $protocol = Protocol::create([
+            'descricao' => $request->description,
+            'value' => $request->value,
+        ]);
+
+        if(!$protocol){
+            return response()->json([
+                'error' => 'Erro ao cadastrar o protocolo!',
+            ]);
+        };
+
+        return response()->json([
+            'message' => 'Protocolo cadastrado com sucesso!',
+            'protocolo' => $protocol,
+        ],200);
+    }
+
+    public function delete($id, Request $request){
+        $protocol = Protocol::find($id);
+
+        $deletar = $protocol->delete();
+
+        if (!$deletar) {
+            return response()->json([
+                'error' => 'Hou algum ao excluir o protocolo!',
+            ], 400);
+        }
+
+        return response()->json([
+            'message' => 'Protocolo excluir com sucesso!',
+        ], 200);
+    }
 
 }

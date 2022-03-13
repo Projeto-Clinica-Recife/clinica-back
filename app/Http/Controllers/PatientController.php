@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Patient;
+use Illuminate\Support\Str;
 
 class PatientController extends Controller
 {
@@ -15,6 +16,12 @@ class PatientController extends Controller
     public function __construct()
     {
         //
+    }
+
+    public function all(){
+        $patients = Patient::all();
+
+        return response()->json($patients);
     }
 
     public  function store(Request $request)
@@ -33,10 +40,24 @@ class PatientController extends Controller
         return response()->json($data, 200);
     }
 
+    public function showById($id){
+        $query = Patient::find($id);
+        if (!$query) {
+            $data = [
+                'message' => 'Paciente não encontrado'
+            ];
+            return response()->json($data, 200);
+        }else{
+            return response()->json($query, 200);
+        }
+    }
+
     public  function show($id){
         $query = Patient::find($id);
+        $search = $replaced = Str::replace('%20', ' ', $id);
         if(!$query){
-        $queryTwo = Patient::where('nome','like','%'.$id.'%')
+        $queryTwo = Patient::where('nome','like','%'.$search.'%')
+        // $queryTwo = Patient::where('nome','like','%'.$id.'%')
         ->orWhere('cpf','=', $id)
         ->get();
         if (count($queryTwo) > 0 ) {

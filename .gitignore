@@ -1,4 +1,7 @@
-/vendor
+vendor/
+public/contracts_pdf/
+public/prescriptions_pdf/
+public/uploads/
 /.idea
 Homestead.json
 Homestead.yaml

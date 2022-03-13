@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Protocols extends Migration
+class CreatePrescriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class Protocols extends Migration
      */
     public function up()
     {
-        Schema::create('protocols', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('descricao');
-            $table->decimal('value')->nullable();
+        Schema::create('prescriptions', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->unsignedBigInteger('agender_id');
+            $table->string('file_name')->nullable();
+            $table->foreign('agender_id')->references('id')->on('agenders');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class Protocols extends Migration
      */
     public function down()
     {
-        Schema::drop('protocols');
+        Schema::dropIfExists('prescriptions');
     }
 }

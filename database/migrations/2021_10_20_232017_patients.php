@@ -32,7 +32,6 @@ class patients extends Migration
             $table->string('nationality');
             $table->string('profession');
             $table->string('marital_status');
-            $table->string('contracted_plan');
             $table->longText('signature')->nullable();
             $table->timestamps();
            

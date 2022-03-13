@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Protocols extends Migration
+class AddTelephoneFieldTablePatients extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class Protocols extends Migration
      */
     public function up()
     {
-        Schema::create('protocols', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('descricao');
-            $table->decimal('value')->nullable();
-            $table->timestamps();
+        Schema::table('patients', function (Blueprint $table) {
+            $table->string('telephone')->after('rg');
         });
     }
 
@@ -28,6 +25,8 @@ class Protocols extends Migration
      */
     public function down()
     {
-        Schema::drop('protocols');
+        Schema::table('patients', function (Blueprint $table) {
+            //
+        });
     }
 }

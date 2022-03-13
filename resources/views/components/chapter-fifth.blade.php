@@ -19,7 +19,7 @@
             
         </div>
         <p>
-            Recife, _______, de _______________________, de 20___
+            Recife, {{date('d')}}, de {{ strftime('%B') }}, de {{date('Y')}}
         </p>
         <br>
         <div class="linha-horizontal"></div>

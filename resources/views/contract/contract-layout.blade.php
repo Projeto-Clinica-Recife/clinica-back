@@ -44,14 +44,14 @@
         <p>Nome: {{$patient->nome}}</p>
         <p>Nacionalidade: {{$patient->nationality}}; Estado Civil: {{$patient->marital_status}}; Profissão: {{$patient->profession}}</p>
         <p>RG: {{$patient->rg}},   Órgão Expedidor: {{$patient->dispatcher}};</p>
-        <p>CPF/MF: {{$patient->cpf}}</p>
+        <p>CPF/MF: {{$patient_cpf_formatted}}</p>
         <p>Endereço: Rua {{$patient->rua}}, nº {{$patient->numero}}</p> <p>Complemento: {{$patient->complemento}}, Bairro: {{$patient->bairro}}, Cidade: {{$patient->cidade}},</p>
         <p>Estado: {{$patient->estado}}, CEP: {{$patient->cep}}, E-mail: {{$patient->email}}</p>
-        <p>Plano Contratado: {{$patient->contracted_plan}}</p>
+        <p>Plano Contratado: {{ $plan->description }}</p>
     </div>
     <div style="text-align: justify">
         <p>
-            <strong>CONTRATADO</strong>: R C VILA SERVIÇOS MÉDICOS, empresário individual, com endereço para prestação de serviços na Av. República do Líbano, 251 – Pina, Recife – PE, 51110-190 e inscrito no CNPJ/MF sob nº 24.623.109/0001-43.
+            <strong>CONTRATADO</strong>: {{ $doctor->name}}, empresário individual, com endereço para prestação de serviços na Av. República do Líbano, 251 – Pina, Recife – PE, 51110-190 e inscrito no CNPJ/MF sob nº 24.623.109/0001-43.
         </p>
         <p>
             As partes acima identificadas – doravante identificadas como CONTRATANTE e o CONTRATADO – têm, entre si, justo e acertado o presente Contrato de prestação de serviços médicos, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente.

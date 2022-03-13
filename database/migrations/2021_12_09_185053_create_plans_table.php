@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Protocols extends Migration
+class CreatePlansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class Protocols extends Migration
      */
     public function up()
     {
-        Schema::create('protocols', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('descricao');
-            $table->decimal('value')->nullable();
+        Schema::create('plans', function (Blueprint $table) {
+            $table->id();
+            $table->string('description');
+            $table->integer('period');
+            $table->decimal('value');
+            $table->enum('status',['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class Protocols extends Migration
      */
     public function down()
     {
-        Schema::drop('protocols');
+        Schema::dropIfExists('plans');
     }
 }

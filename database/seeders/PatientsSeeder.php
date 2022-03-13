@@ -15,6 +15,7 @@ class PatientsSeeder extends Seeder
             'nome' => 'Herbet',
             'email' => 'herbet@gmail.com',
             'rg' => '12345678912',
+            'telephone' => '74956859652',
             'cpf' => '12345658591',
             'dispatcher' => 'SSP',
             'data_nascimento' => '2021-05-05',
@@ -29,8 +30,29 @@ class PatientsSeeder extends Seeder
             'nationality' => 'Brasileiro',
             'profession' => 'Pedreiro',
             'marital_status' => 'Solteiro',
-            'contracted_plan' => 'Premium',
             'signature' => 'rqewefewdwfewwe',
+        ]);
+
+        DB::table('patients')->insert([
+            'nome' => 'Anderson',
+            'email' => 'and@gmail.com',
+            'rg' => '895465452',
+            'telephone' => '74975859652',
+            'cpf' => '54625321441',
+            'dispatcher' => 'SSP',
+            'data_nascimento' => '2001-05-05',
+            'cep' => '48904755',
+            'rua' => 'Flor de Juá',
+            'numero' => '180',
+            'bairro' =>  'São Geraldo',
+            'cidade' => 'Juazeiro',
+            'estado' => 'BA',
+            'complemento' => 'Casa',
+            'ponto_referencia' => 'No',
+            'nationality' => 'Brasileiro',
+            'profession' => 'Pedreiro',
+            'marital_status' => 'Solteiro',
+            'signature' => 'rqewefewdwfrftwe',
         ]);
     }
 }

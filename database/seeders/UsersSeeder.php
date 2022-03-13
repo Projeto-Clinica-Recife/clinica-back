@@ -20,9 +20,10 @@ class UsersSeeder extends Seeder
     {
         //
         User::factory()->count(1)->create([
-            'name' => 'Gil',
+            'name' => 'Gabriel',
             'email' => 'admin@gmail.com',
             'cpf' => '987654321',
+            'first_access' => false,
             'password' => Hash::make('1234'),
         ])->each(function($user){
             UserInformation::factory()->count(1)->create([
@@ -36,6 +37,7 @@ class UsersSeeder extends Seeder
             'email' => 'ana@gmail.com',
             'cpf' => '2134667895',
             'type_user' => 'doctor',
+            'first_access' => false,
             'password' => Hash::make('1234'),
         ])->each(function($user){
             UserInformation::factory()->count(1)->create([
@@ -65,6 +67,19 @@ class UsersSeeder extends Seeder
             'email' => 'reception@gmail.com',
             'cpf' => '98745633215',
             'type_user' => 'reception',
+            'password' => Hash::make('1234'),
+        ])->each(function($user){
+            UserInformation::factory()->count(1)->create([
+                'user_id' => $user->id,
+            ]);
+        });
+
+        User::factory()->count(1)->create([
+            'name' => 'AnaR',
+            'email' => 'anar@gmail.com',
+            'cpf' => '85965478232',
+            'type_user' => 'reception',
+            'first_access' => false,
             'password' => Hash::make('1234'),
         ])->each(function($user){
             UserInformation::factory()->count(1)->create([

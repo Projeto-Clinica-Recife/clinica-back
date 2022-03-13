@@ -15,6 +15,36 @@ use Validator;
 class CalendarController extends Controller
 {
 
+    public function getAgenderByWeek(Request $request){
+        $date = strtotime($request->date);
+        $date = date('Y-m-d', $date);
+
+        $agender = Agender::with('doctor')
+        ->orderBy('date')
+        ->with('patient')
+        ->with('protocols')
+        ->get();
+
+        //Pega o dia da semana em numeral
+        $day = date('w', strtotime($date));
+        //Pega o primeiro dia da semana
+        $week_start = date('Y-m-d', strtotime($date.'-'.$day.'days'));
+        //Pega o último dia da semana
+        $week_end = date('Y-m-d', strtotime($date.'+'.(6-$day).'days'));
+
+        $agender_week = [];
+
+        foreach ($agender as $ag){
+            if($ag->date >= $week_start && $ag->date <= $week_end) {
+                array_push($agender_week, $ag);
+            }
+        }
+
+        return response()->json(
+            $agender_week,
+        );
+    }
+
     public function getAgender($id, $date)
     {
         $agender = DB::table('agender_protocols')
@@ -39,8 +69,10 @@ class CalendarController extends Controller
             ->select(
             'agenders.hour',
             'agender_id',
+            'patients.id as patient_id',
             'patients.nome as patient',
-            'status'
+            'status',
+            'agender_protocols.id as item_id'
             )
             ->where('doctor_id', $id)
             ->where('date', $date)
@@ -77,6 +109,8 @@ class CalendarController extends Controller
             ->where('date', $request->date)
             ->where('hour', $request->hour)
             ->where('agender_protocols.status', '<>', 'canceled')
+            ->where('agenders.doctor_id', $request->doctor_id)
+            ->where('agenders.patient_id', $request->patient_id)
             ->get();
         // $rules = Agender::where('date', $request->date)
         // ->where('hour', $request->hour)->get();
@@ -86,24 +120,25 @@ class CalendarController extends Controller
         if (count($rules) > 0) {
             return response()->json([
                 'message' => 'Já existe um agendamento nesta data e horário',
-            ]);
+            ], 422);
         }
 
         $agender = Agender::create([
             'date' => $request->date,
             'hour' => $request->hour,
+            'hourEnd' => $request->hourEnd,
             // 'protocols_id' => $protocols,
             'doctor_id' => $request->doctor_id,
             'patient_id' => $request->patient_id,
         ]);
 
 
-        foreach ($request->protocols_id as  $protocol) {
+        // foreach ($request->protocols_id as  $protocol) {
             $agender_protocol = AgenderProtocol::create([
                 'agender_id' => $agender->id,
-                'protocol_id' => $protocol,
+                'protocol_id' => $request->protocols_id,
             ]);
-        };
+        // };
 
         return response()->json([
             'agender' => $agender,
@@ -126,4 +161,6 @@ class CalendarController extends Controller
             return response()->json($data, 200);
         }
     }
+
+
 }
