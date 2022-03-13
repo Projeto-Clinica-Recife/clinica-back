@@ -13,7 +13,6 @@ class Prescription extends Model
     protected $fillable = [
         'id',
         'agender_id',
-        'base64',
         'file_name',
     ];
 

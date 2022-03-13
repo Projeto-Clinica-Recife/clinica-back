@@ -32,13 +32,20 @@
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "process-timeout": 0
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "server" : [
+            "php -S localhost:8000 -t public"
+        ],
+        "migrate-fresh-pass": [
+            "php artisan migrate:fresh && php artisan passport:install" 
         ]
     }
 }
