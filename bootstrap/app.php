@@ -37,6 +37,7 @@ class_alias ( 'Barryvdh\DomPDF\Facade' , 'PDF' );
 // Enable auth middleware (shipped with Lumen)
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'admin' => \App\Http\Middleware\CheckAdminUser::class,
 ]);
 
 $app->routeMiddleware([

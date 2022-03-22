@@ -51,4 +51,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany(PatientPlan::class, 'doctor_id');
     }
 
+    public function protocols(){
+        return $this->belongsToMany(Protocol::class);
+    }
+
 }

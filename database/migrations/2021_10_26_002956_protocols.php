@@ -17,6 +17,9 @@ class Protocols extends Migration
             $table->bigIncrements('id');
             $table->string('descricao');
             $table->decimal('value')->nullable();
+            $table->enum('status',['active', 'inactive'])->default('active');
+            $table->unsignedBigInteger('doctor_id')->nullable();
+            $table->foreign('doctor_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

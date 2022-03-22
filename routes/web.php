@@ -70,11 +70,14 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->post('/query-patient', 'QueryPatientController@store');
 });
 
-$router->group(['prefix' => 'protocol'], function () use ($router) {
-    $router->get('/protocols', 'ProtocolorController@getProtols');
+$router->group(['prefix' => 'protocol', 'middleware' => ['auth', 'admin']], function () use ($router) {
+    $router->get('/', 'ProtocolorController@getProtols');
+    $router->get('/{id}', 'ProtocolorController@getProtolById');
     $router->get('/showProtocolAgender/{id}', 'ProtocolorController@showProtocolAgender');
     $router->post('/', 'ProtocolorController@store');
-    $router->put('/delete/{id}', 'ProtocolorController@delete');
+    $router->put('/{id}', 'ProtocolorController@update');
+    $router->put('/disable/{id}', 'ProtocolorController@disableOrActive');
+    $router->delete('/{id}', 'ProtocolorController@delete');
 });
 
 $router->group(['prefix' => 'agender'], function () use ($router) {
@@ -97,10 +100,12 @@ $router->group(['prefix' => 'prescription'], function () use ($router){
 
 $router->group(['prefix' => 'plan'], function () use ($router){
     $router->get('/', 'PlanController@get_plans');
+    $router->get('/get-plan/{id}', 'PlanController@get_plan_by_id');
     $router->get('/active', 'PlanController@get_plans_actives');
     $router->get('/search-patient/{item}', 'PlanPatientController@search_plan_patient');
     $router->get('/search-doctor/{item}', 'PlanPatientController@search_plan_doctor');
     $router->post('/store', 'PlanController@store');
+    $router->put('edit/{id}', 'PlanController@update');
     $router->put('/cancel/{id}', 'PlanController@canceled_plan');
     $router->put('/reactivate/{id}', 'PlanController@reactivatePlan');
 });

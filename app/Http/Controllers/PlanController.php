@@ -53,6 +53,16 @@ class PlanController extends Controller
         return response()->json($plans);
     }
 
+    public function get_plan_by_id($id){
+        $plan = Plan::find($id);
+
+        if(is_null($plan)){
+            return response()->json(['error' => 'Plano não encontrado!'],404);
+        }
+
+        return response()->json($plan);
+    }
+
     public function  get_plans_actives(){
         $plans = DB::table('plans')
         ->where('status', 'active')
@@ -70,6 +80,27 @@ class PlanController extends Controller
             };
         }
         return response()->json($plans);
+    }
+
+    public function update($id, Request $request){
+        $plan = Plan::find($id);
+
+        if(is_null($plan)){
+            return response()->json(['error' => 'Plano não encontrado!'],404);
+        }
+
+        try{
+            $plan->update([
+                'description' => $request->description,
+                'period' => $request->period,
+                'value' => $request->value,
+            ]);
+
+            return response()->json($plan);
+        }catch(Exception $e){
+            return response()->json(['error' => 'Houve algum erro ao salvar!'],500);
+        }
+
     }
 
     public function canceled_plan($id){
