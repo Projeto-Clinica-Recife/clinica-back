@@ -16,7 +16,6 @@ class CreatePrescriptionsTable extends Migration
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->unsignedBigInteger('agender_id');
-            $table->longText('base64')->nullable();
             $table->string('file_name')->nullable();
             $table->foreign('agender_id')->references('id')->on('agenders');
             $table->timestamps();

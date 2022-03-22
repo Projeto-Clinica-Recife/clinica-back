@@ -66,7 +66,6 @@ class PrescriptionController extends Controller
         $prescription_save = Prescription::create([
             'id' => $prescription_id,
             'agender_id' => $agender_id,
-            'base64' => $base64,
             'file_name' => $file_name,
         ]);
 
@@ -78,6 +77,7 @@ class PrescriptionController extends Controller
     public function get_prescription_pdf($prescription_id){
 
         $prescription = Prescription::where('id', $prescription_id)->first();
+        $file_name = $prescription->file_name;
         $file_path = base_path('public/prescriptions_pdf/' . $file_name);
         $file = file_get_contents(base_path('public/prescriptions_pdf/') . $file_name);
         $base64 = base64_encode($file);
