@@ -32,6 +32,16 @@ class ProtocolorController extends Controller
         200);
     }
 
+    public function getActiveProtocols(){
+        $protocols = DB::table('protocols')
+        ->where('status', 'active')
+        ->get();;
+
+        return response()->json(
+            $protocols,
+        200);
+    }
+
     public function getProtolById($id){
         $protocol = Protocol::find($id);
 
