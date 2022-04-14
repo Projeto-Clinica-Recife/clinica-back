@@ -63,6 +63,20 @@ class UsersSeeder extends Seeder
         });
 
         User::factory()->count(1)->create([
+            'name' => 'Paula',
+            'email' => 'paula@gmail.com',
+            'cpf' => '58546985855',
+            'type_user' => 'doctor',
+            'password' => Hash::make('1234'),
+        ])->each(function($user){
+            UserInformation::factory()->count(1)->create([
+                'user_id' => $user->id,
+                'crm' => '859654',
+                'crm_state' => 'PE',
+            ]);
+        });
+
+        User::factory()->count(1)->create([
             'name' => 'Ana',
             'email' => 'reception@gmail.com',
             'cpf' => '98745633215',

@@ -25,6 +25,7 @@ class AgendersSeeder extends Seeder
                 'protocol_id' => $protocol_id,
             ]);
         });
+        
         Agender::factory()->count(2)->create([
             'doctor_id' => 3,
             'patient_id' => 2,
@@ -42,7 +43,34 @@ class AgendersSeeder extends Seeder
             'doctor_id' => 3,
             'patient_id' => 2,
             'agender_protocol_id' => $agender_protocol->id,
-        ]);
-        });;
+            ]);
+        });
+
+        Agender::factory()->count(2)->create([
+            'doctor_id' => 4,
+            'patient_id' => 10,
+        ])->each(function($agender){
+            $protocol_id = rand(1,10);
+            DB::table('agender_protocols')
+            ->insert([
+                'agender_id' => $agender->id,
+                'status' => 'waiting',
+                'protocol_id' => $protocol_id,
+            ]);
+        });
+
+        Agender::factory()->count(2)->create([
+            'doctor_id' => 4,
+            'patient_id' => 5,
+        ])->each(function($agender){
+            $protocol_id = rand(1,10);
+            DB::table('agender_protocols')
+            ->insert([
+                'agender_id' => $agender->id,
+                'status' => 'waiting',
+                'protocol_id' => $protocol_id,
+            ]);
+        });
+
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\UserInformation;
 use App\Models\User;
+use App\Models\Patient;
 
 class PatientsSeeder extends Seeder
 {
@@ -54,5 +55,12 @@ class PatientsSeeder extends Seeder
             'marital_status' => 'Solteiro',
             'signature' => 'rqewefewdwfrftwe',
         ]);
+
+        Patient::factory()->count(8)->create([
+            'dispatcher' => 'SSP',
+            'marital_status' => 'Solteiro(a)',
+            'nationality' => 'Brasil',        
+        ]);
+
     }
 }
