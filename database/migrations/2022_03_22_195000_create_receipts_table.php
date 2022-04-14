@@ -16,7 +16,8 @@ class CreateReceiptsTable extends Migration
         Schema::create('receipts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
-            $table->string('type_product');
+            $table->unsignedBigInteger('doctor_id');
+            $table->enum('type_product', ['plan', 'protocol', 'single']);
             $table->decimal('value');
             $table->string('form_of_payment');
             $table->string('observation');
@@ -24,6 +25,7 @@ class CreateReceiptsTable extends Migration
             $table->decimal('value_remaining');
             $table->unsignedBigInteger('product_id');
             $table->foreign('client_id')->references('id')->on('users');
+            $table->foreign('doctor_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

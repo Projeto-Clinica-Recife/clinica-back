@@ -110,3 +110,8 @@ $router->group(['prefix' => 'plan'], function () use ($router){
     $router->put('/cancel/{id}', 'PlanController@canceled_plan');
     $router->put('/reactivate/{id}', 'PlanController@reactivatePlan');
 });
+
+$router->group([ 'prefix' => 'receipt'], function () use ($router){
+    $router->post('/', 'ReceiptController@store');
+    $router->get('/', 'ReceiptController@index');
+});
