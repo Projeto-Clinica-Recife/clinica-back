@@ -70,7 +70,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->post('/query-patient', 'QueryPatientController@store');
 });
 
-$router->group(['prefix' => 'protocol', 'middleware' => ['auth']], function () use ($router) {
+$router->group(['prefix' => 'protocol'], function () use ($router) {
     $router->get('/', 'ProtocolorController@getProtols');
     $router->get('/active', 'ProtocolorController@getActiveProtocols');
     $router->get('/{id}', 'ProtocolorController@getProtolById');
