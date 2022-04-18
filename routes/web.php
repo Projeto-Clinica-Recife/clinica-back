@@ -70,7 +70,7 @@ $router->group(['prefix' => 'doctor'], function () use ($router) {
     $router->post('/query-patient', 'QueryPatientController@store');
 });
 
-$router->group(['prefix' => 'protocol'], function () use ($router) {
+$router->group(['prefix' => 'protocol', 'middleware' => 'auth'], function () use ($router) {
     $router->get('/', 'ProtocolorController@getProtols');
     $router->get('/active', 'ProtocolorController@getActiveProtocols');
     $router->get('/{id}', 'ProtocolorController@getProtolById');
@@ -94,12 +94,12 @@ $router->group(['prefix' => 'contract'], function () use ($router) {
         $router->put('edit/{contractId}', 'ContractController@edit_contract');
 });
 
-$router->group(['prefix' => 'prescription'], function () use ($router){
+$router->group(['prefix' => 'prescription', 'middleware' => 'auth'], function () use ($router){
     $router->post('/generate', 'PrescriptionController@generate');
     $router->get('/get-pdf/{prescription_id}', 'PrescriptionController@get_prescription_pdf');
 });
 
-$router->group(['prefix' => 'plan'], function () use ($router){
+$router->group(['prefix' => 'plan', 'middleware' => 'auth'], function () use ($router){
     $router->get('/', 'PlanController@get_plans');
     $router->get('/get-plan/{id}', 'PlanController@get_plan_by_id');
     $router->get('/active', 'PlanController@get_plans_actives');

@@ -96,7 +96,10 @@ class PlanController extends Controller
                 'value' => $request->value,
             ]);
 
-            return response()->json($plan);
+            return response()->json([
+                'plan' => $plan,
+                'message' => 'Plano editado com sucesso!',
+            ]);
         }catch(Exception $e){
             return response()->json(['error' => 'Houve algum erro ao salvar!'],500);
         }
