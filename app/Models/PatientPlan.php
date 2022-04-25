@@ -18,6 +18,7 @@ class PatientPlan extends Model
         'observation',
         'dueDate',
         'total_value',
+        'payment_status',
     ];
 
     public function patient(){

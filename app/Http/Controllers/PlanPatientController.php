@@ -28,7 +28,7 @@ class PlanPatientController extends Controller
         }
 
         $patient_plan = PatientPlan::create([
-            'patient_id' => $request->patientId,
+            'patient_id' => $patientId,
             'doctor_id' => $request->doctor_id,
             'plan_id' => $request->plan_id,
             'form_of_payment' => $request->form_of_payment,
@@ -36,6 +36,7 @@ class PlanPatientController extends Controller
             'dueDate' => $venciment,
             'total_value' => $value_total,
             'observation' => $request->observation,
+            "payment_status" => $request->payment_status,
         ]);
         
         if (!$patient_plan) {
@@ -52,17 +53,6 @@ class PlanPatientController extends Controller
 
     public function search_plan_patient($item) {
         $search = $replaced = Str::replace('%20', ' ', $item);
-
-        // $patient = Patient::where('cpf','like','%'.$search.'%')
-        // ->first();
-        // $plans = null;
-        // if($patient){
-        //     $plans = PatientPlan::where('patient_id', $patient->id)->first();
-        // }
-
-        // if($plans){
-        //     return response()->json($patient);
-        // }
 
         $patient = DB::table('patients')
         ->join('patients_plans', 'patients.id', '=', 'patients_plans.patient_id')
